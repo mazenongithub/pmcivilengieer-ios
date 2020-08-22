@@ -1,0 +1,12 @@
+{
+  "name": "projectmanagement",
+  "displayName": "projectmanagement",
+  "expo": {
+    "name": "projectmanagement",
+    "slug": "projectmanagement",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
