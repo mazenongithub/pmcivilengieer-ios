@@ -16,11 +16,14 @@ class MyProjects {
         if (myuser) {
 
             let myproject = pm.getactiveproject.call(this);
-            const title = myproject.title;
+            const oldprojectid = myproject.projectid;
+            const newprojectid = myproject.title;
+            const values = {oldprojectid, newprojectid}
+
             if (!myproject.hasOwnProperty("invalid")) {
                 try {
 
-                    let response = await CheckProjectID(title);
+                    let response = await CheckProjectID(values);
                     console.log(response)
 
 
@@ -28,7 +31,7 @@ class MyProjects {
                         let i = pm.getprojectkeybyid.call(this, myproject.projectid)
                         if (response.hasOwnProperty("valid")) {
 
-                            if (myuser.projects.myproject[i].hasOwnProperty("valid")) {
+                            if (myuser.projects.myproject[i].hasOwnProperty("invalid")) {
                                 delete myuser.projects.myproject[i].invalid;
                                 this.props.reduxUser(myuser)
                                 this.setState({ message: '' })
@@ -39,7 +42,7 @@ class MyProjects {
                         } else if (response.hasOwnProperty("invalid") && myproject) {
                             myuser.projects.myproject[i].invalid = response.invalid;
                             this.props.reduxUser(myuser)
-                            this.setState({ message: response.message })
+                            this.setState({ message: response.invalid})
 
                         }
 

@@ -847,13 +847,16 @@ class PM {
         validate.validate = true;
         validate.message = "";
         if (myuser) {
-            if(myuser.emailaddress) {
-                validate.validate = false;
-                validate.message += ` Email Address is required `
-            }
+        
             if (myuser.hasOwnProperty("invalid")) {
                 validate.validate = false;
-                validate.message += this.state.message;
+                validate.message += myuser.invalid;
+            }
+
+            if(myuser.hasOwnProperty("invalidemail")) {
+                validate.validate = false;
+                validate.message += myuser.invalidemail;
+
             }
             if (myuser.hasOwnProperty("projects")) {
                 // eslint-disable-next-line

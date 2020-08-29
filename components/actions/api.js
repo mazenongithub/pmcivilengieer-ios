@@ -220,17 +220,18 @@ export async function CheckUserLogin() {
 }
 
 export async function CheckProviderID(profile) {
+    const variables = new EnvironmentalVariables();
+    const serverAPI = variables.getvariables().serverAPI;
+    var APIURL = `${serverAPI}/projectmanagement/${profile}/checkprofile`
 
-    var APIURL = `https://civilengineer.io/projectmanagement/api/checkproviderid.php?profile=${profile}`
-
-    return fetch(APIURL, { credentials: 'same-origin' })
+    return fetch(APIURL, { credentials: 'include' })
         .then(resp => {
 
             if (!resp.ok) {
                 if (resp.status >= 400 && resp.status < 500) {
                     return resp.json().then(data => {
-                        let err = { errorMessage: data.message };
-                        throw err;
+                     
+                        throw data.message
                     })
                 }
                 else {
@@ -246,8 +247,9 @@ export async function CheckProviderID(profile) {
 
 export async function CheckEmailAddress(emailaddress) {
 
-
-    var APIURL = `https://civilengineer.io/projectmanagement/api/checkemailaddress.php?emailaddress=${emailaddress}`
+    const variables = new EnvironmentalVariables();
+    const serverAPI = variables.getvariables().serverAPI;
+    var APIURL = `${serverAPI}/projectmanagement/${emailaddress}/checkemail`
 
     return fetch(APIURL, {
         credentials: 'same-origin'
@@ -274,22 +276,29 @@ export async function CheckEmailAddress(emailaddress) {
 
 
 
-export async function CheckProjectID(title) {
-    const APIURL = `https://civilengineer.io/projectmanagement/api/checknewprojectid.php?title=${title}`
-    return fetch(APIURL)
+export async function CheckProjectID(values) {
+    const variables = new EnvironmentalVariables();
+    const serverAPI = variables.getvariables().serverAPI;
+    const APIURL = `${serverAPI}/projectmanagement/checknewprojectid`
+    return fetch(APIURL, {
+        method: 'post',
+        credentials: 'include',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+        }),
+
+        body: JSON.stringify(values)
+    })
         .then(resp => {
 
             if (!resp.ok) {
                 if (resp.status >= 400 && resp.status < 500) {
                     return resp.json().then(data => {
-                        let err = { errorMessage: data.message };
-                        throw err;
+
+                        throw data.message;
                     })
                 }
-                else {
-                    let err = { errorMessage: 'Please try again later, server is not responding' };
-                    throw err;
-                }
+
             }
 
             return resp.json();

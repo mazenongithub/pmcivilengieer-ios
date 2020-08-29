@@ -14,16 +14,11 @@ class MyProfile {
 
     confirmemailaddressimage() {
         const pm = new PM();
-        const gocheck = pm.getgochecksmall.call(this)
         const myuser = pm.getuser.call(this)
-        let invalid = myuser.invalid;
-        let validate = true;
-        if (invalid) {
-            if (invalid.hasOwnProperty("emailaddress")) {
-                validate = false;
-            }
-        }
-        if (validate) {
+        if (!myuser.hasOwnProperty("invalidemail")) {
+ 
+            const gocheck = pm.getgochecksmall.call(this)
+
             return (
                 <Image source={require('./png/gocheck.png')}
                     resizeMethod='scale'
@@ -33,20 +28,15 @@ class MyProfile {
             return;
         }
 
+
     }
 
     confirmprofileimage() {
         const pm = new PM();
         const gocheck = pm.getgochecksmall.call(this)
         const myuser = pm.getuser.call(this)
-        let invalid = myuser.invalid;
-        let validate = true;
-        if (invalid) {
-            if (invalid.hasOwnProperty("profile")) {
-                validate = false;
-            }
-        }
-        if (validate) {
+        if (!myuser.invalid) {
+            const gocheck = pm.getgochecksmall.call(this)
             return (
                 <Image source={require('./png/gocheck.png')}
                     resizeMethod='scale'
@@ -133,81 +123,75 @@ class MyProfile {
         let myuser = pm.getuser.call(this);
         return myuser.profile;
     }
+
+
     handleprofile(profile) {
-        profile = profile.toLowerCase();
         const pm = new PM();
         let myuser = pm.getuser.call(this);
+        profile = profile.toLowerCase();
+        myuser.profile = profile;
         let errmsg = validateProviderID(profile)
+
         if (myuser) {
-            myuser.profile = profile;
+
 
             if (errmsg) {
-                let invalid = { profile: errmsg }
-                myuser.invalid = invalid;
+
+                myuser.invalid = errmsg;
                 this.props.reduxUser(myuser);
                 this.setState({ message: errmsg })
 
             } else {
+
                 if (myuser.hasOwnProperty("invalid")) {
                     delete myuser.invalid;
-                    this.props.reduxUser(myuser);
-                    this.setState({ message: '' })
-                } else {
-                    this.props.reduxUser(myuser);
-                    this.setState({ message: '' })
                 }
 
+                this.props.reduxUser(myuser);
+                this.setState({ message: '' })
             }
 
 
         }
 
     }
-    async verifyProfile() {
+
+      async verifyProfile() {
+          
         const pm = new PM();
         const myuser = pm.getuser.call(this)
-        let validate = true;
-        if (myuser.hasOwnProperty("invalid")) {
-            if (myuser.invalid.hasOwnProperty("profile")) {
-                validate = false;
-            }
-        }
-        if (myuser) {
-
-            if (validate) {
-
-
+        if (!myuser.invalid) {   
 
                 try {
+
                     let response = await CheckProviderID(myuser.profile)
                     console.log(response)
+                    let message  ="";
                     if (response.hasOwnProperty("valid")) {
 
                         if (myuser.hasOwnProperty("invalid")) {
-                            if (myuser.invalid.hasOwnProperty("profile")) {
-                                delete myuser.invalid.profile;
-                            }
-                            if (!myuser.invalid.hasOwnProperty("emailaddress")) {
-                                delete myuser.invalid;
-                            }
 
-                            this.props.reduxUser(myuser);
-                            this.setState({ render: 'render' })
+                            delete myuser.invalid
+
                         }
-                    }
-                    else {
-                        let invalid = { profile: response.message }
-                        myuser.invalid = invalid;
-                        this.props.reduxUser(myuser)
-                        this.setState({ message: response.message });
+
+                    } else if (response.hasOwnProperty("invalid")) {
+                       
+                        myuser.invalid = response.invalid;
+                        message+= response.invalid;
                     }
 
-                } catch (err) {
+
+                    this.props.reduxUser(myuser);
+                    this.setState({ message })
+
+                }
+                catch (err) {
 
                     alert(err)
                 }
 
-            }
+            
 
         }
 
@@ -268,86 +252,64 @@ class MyProfile {
     async verifyEmailAddress() {
         const pm = new PM();
         const myuser = pm.getuser.call(this);
-        let validate = true;
-        if (myuser.hasOwnProperty("invalid")) {
-            if (myuser.invalid.hasOwnProperty("emailaddress")) {
-                validate = false;
-            }
-        }
+        const errmsg = validateEmail(myuser.emailaddress);
 
-        if (validate) {
+        if (!errmsg) {
             try {
-                let response = await CheckEmailAddress(myuser.emailaddress)
-                console.log("CHECKEMAIL", response)
-                if (response.hasOwnProperty("valid")) {
 
-                    if (myuser.hasOwnProperty("invalid")) {
-                        if (myuser.invalid.hasOwnProperty("emailaddress")) {
-                            delete myuser.invalid.emailaddress;
-                            if (!myuser.invalid.hasOwnProperty("profile")) {
-                                delete myuser.invalid;
-                            }
-                        }
-                    }
+                const response = await CheckEmailAddress(myuser.emailaddress)
+
+                if (response.hasOwnProperty("invalid")) {
+                    myuser.invalidemail = ` ${response.invalid}`
                     this.props.reduxUser(myuser)
-                    this.setState({ message: '' })
-
-                }
-                else {
-
-                    if (myuser.hasOwnProperty("invalid")) {
-                        myuser.invalid.emailaddress = response.message;
-                    } else {
-                        const invalid = { emailaddress: response.message }
-                        myuser.invalid = invalid;
-                    }
+                    this.setState({ message: response.invalid })
+                } else {
+                    delete myuser.invalidemail;
                     this.props.reduxUser(myuser)
-                    this.setState({ message: response.message });
+                    this.setState({ message:'' })
                 }
+
 
             } catch (err) {
-
                 alert(err)
             }
 
+
+
+
+        } else {
+            myuser.invalidemail = myuser.emailaddress;
+            this.props.reduxUser(myuser)
+            this.setState({ render: 'render' })
         }
+
 
 
     }
 
     handleemailaddress(emailaddress) {
         const pm = new PM();
-        emailaddress = emailaddress.toString();
         let myuser = pm.getuser.call(this);
         if (myuser) {
-            myuser.emailaddress = emailaddress;
-            let errmsg = validateEmail(emailaddress)
-            if (errmsg) {
-                if (!myuser.hasOwnProperty("invalid")) {
-                    const invalid = { emailaddress }
-                    myuser.invalid = invalid
-                } else {
-                    myuser.invalid.emailaddress = errmsg;
-                }
 
-                this.props.reduxUser(myuser)
-                this.setState({ message: errmsg })
+            let errmsg = "";
+            errmsg = validateEmail(emailaddress)
+
+            if (errmsg) {
+                myuser.invalidemail = errmsg;
+                this.setState({message:errmsg})
+
             } else {
 
-                if (myuser.hasOwnProperty("invalid")) {
-                    if (myuser.invalid.hasOwnProperty("emailaddress")) {
-                        delete myuser.invalid.emailaddress;
-                    }
-                    if (!myuser.invalid.hasOwnProperty("profile")) {
-                        delete myuser.invalid
-                    }
+                if (myuser.hasOwnProperty("invalidemail")) {
+                    delete myuser.invalidemail
                 }
-
-                this.props.reduxUser(myuser);
-                this.setState({ message: '' })
+                this.setState({message:errmsg})
 
             }
-
+            myuser.emailaddress = emailaddress;
+            this.props.reduxUser(myuser);
+            this.setState({ render: 'render' })
         }
 
     }
