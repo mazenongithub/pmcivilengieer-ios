@@ -881,6 +881,14 @@ class PM {
                         validate.message += this.state.message
                     }
 
+                    if (myproject.hasOwnProperty("projectmilestones")) {
+                        let auditmilestones = pm.auditmilestones.call(this, myproject.projectmilestones.mymilestone)
+                        if (auditmilestones) {
+                            validate.validate = false;
+                            validate.message += auditmilestones;
+                        }
+                    }
+
 
                 })
             }
