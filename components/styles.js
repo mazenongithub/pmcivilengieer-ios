@@ -11,6 +11,9 @@ export function MyStylesheet() {
             flexDirection: 'row',
             flexWrap: 'wrap',
         },
+        redFont: {
+            color:'red'
+        },
         generalContainer:{
             backfaceVisibility:'visible'
         },

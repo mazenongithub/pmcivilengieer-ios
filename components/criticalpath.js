@@ -1,7 +1,7 @@
 import React from 'react'
 import { MyStylesheet } from './styles';
 import PM from './pm'
-import { CreatePredessor, getDateInterval, trailingZeros, getOffsetDate, monthString, increaseCalendarDayOneMonth, calculatemonth, milestoneformatdatestring, getScale, calculateyear, increasedatebyoneday, calculateday } from './functions'
+import { CreatePredessor, getDateInterval, trailingZeros, getOffsetDate, monthString, increaseCalendarDayOneMonth, calculatemonth, milestoneformatdatestring, getScale, calculateyear, increasedatebyoneday, calculateday, makeID, getRandomColor } from './functions'
 import { View, Text, Image, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import Svg, {
     Rect,
@@ -189,12 +189,12 @@ class CriticalPath {
 
         // const x2 = 200
         // const y2 = 80
-
+        const randomcolor = getRandomColor()
 
         return (
-            <G key={`${x1.toString()}${y1.toString()}${x2.toString()}${y2.toString()}`} id="lineandarrow">
-                <Polyline strokeWidth="1" stroke="rgb(0,0,0)" points={`${x2 - 13} ${y2} ${x2 - 23} ${y2} ${x2 - 23} ${y1 + 3} ${x1} ${y1 + 3} ${x1} ${y1}`} />
-                <Polygon strokeWidth="1" stroke="rgb(0,0,0)" fill="rgb(0,0,0)" points={`${x2 - 11.53} ${y2 + 4.12} ${x2 - 11.53} ${y2 + 1.79} ${x2 - 20.48} ${y2 + 1.79} ${x2 - 20.48} ${y2 - 1.1} ${x2 - 11.53} ${y2 - 1.1} ${x2 - 11.53} ${y2 - 3.4} ${x2} ${y2 + 0.34} ${x2 - 11.53} ${y2 + 4.12}`} />
+            <G key={`${x1.toString()}${y1.toString()}${x2.toString()}${y2.toString()}${makeID(6)})}`} id="lineandarrow">
+                <Polyline strokeWidth="1" stroke={randomcolor} points={`${x2 - 13} ${y2} ${x2 - 23} ${y2} ${x2 - 23} ${y1 + 3} ${x1} ${y1 + 3} ${x1} ${y1}`} />
+                <Polygon strokeWidth="1" stroke={randomcolor}  fill={randomcolor} points={`${x2 - 11.53} ${y2 + 4.12} ${x2 - 11.53} ${y2 + 1.79} ${x2 - 20.48} ${y2 + 1.79} ${x2 - 20.48} ${y2 - 1.1} ${x2 - 11.53} ${y2 - 1.1} ${x2 - 11.53} ${y2 - 3.4} ${x2} ${y2 + 0.34} ${x2 - 11.53} ${y2 + 4.12}`} />
             </G>)
     }
 
@@ -307,6 +307,8 @@ class CriticalPath {
             }
 
         }
+        let auditmilestones = "";
+        auditmilestones += pm.auditmilestones.call(this,milestones)
 
         const projectinterval = pm.getprojectinterval.call(this);
         let interval = '1202.88'
@@ -345,10 +347,12 @@ class CriticalPath {
 
         const activemilestone = () => {
             if (this.state.activemilestoneid) {
+                const float = pm.getfloatbymilestoneid.call(this,this.state.activemilestoneid) 
                 const milestone = pm.getmilestonebyid.call(this, this.state.activemilestoneid);
+                const projectfloat = pm.calcTotalProjectFloat.call(this,this.state.activemilestoneid)
                 return (
                     <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                        <Text style={{ ...styles.generalFont, ...regularFont }}>Active Milestone Is: {milestone.milestone}</Text>
+                        <Text style={{ ...styles.generalFont, ...regularFont }}>Active Milestone Is: {milestone.milestone} Float is {float} days Project Float is {projectfloat} days</Text>
                     </View>
                 )
             }
@@ -406,7 +410,7 @@ class CriticalPath {
                     offsetstart = getOffsetDate(datestartyear)
                     datestartyear = new Date(`${datestartyear.replace(/-/g, '/')} 00:00:00${offsetstart}`)
 
-                    mylabels.push(<TextSvg key={`crdfit${yearstart}`} fill="black" stroke="none" fontSize="16" x={x1} y={yext + 50}>{datestartyear.getFullYear()}</TextSvg>);
+                    mylabels.push(<TextSvg key={`crdfit${yearstart}${x1.toString()}`} fill="black" stroke="none" fontSize="16" x={x1} y={yext + 50}>{datestartyear.getFullYear()}</TextSvg>);
 
 
                 }
@@ -425,7 +429,7 @@ class CriticalPath {
                     let day = trailingZeros(intstart.getDate());
                     daystartday = `${year}-${month}-${day}`
 
-                    mylabels.push(<TextSvg key={`crdfdfit${day}`} fill="black" stroke="none" fontSize="16" x={x1} y={yext + 50}>{month}/{day}/{year}</TextSvg>);
+                    mylabels.push(<TextSvg key={`crdfdfit${day}${x1.toString()}`} fill="black" stroke="none" fontSize="16" x={x1} y={yext + 50}>{month}/{day}/{year}</TextSvg>);
 
                 }
 
@@ -450,11 +454,7 @@ class CriticalPath {
             if (this.state.activemilestoneid) {
                 return (
                     <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                        <View style={{ ...styles.flex1 }}>
-                            <Text style={{ ...styles.generalFont, ...regularFont }}>Can't Start until which milestones start? </Text>
-                            {milestoneid.showmilestoneid.call(this, 'start-to-start')}
-                            {criticalpath.showstartdates.call(this)}
-                        </View>
+                     
                         <View style={{ ...styles.flex1 }}>
                             <Text style={{ ...styles.generalFont, ...regularFont }}>Can't Start until which milestones finish? </Text>
 
@@ -470,12 +470,22 @@ class CriticalPath {
             }
         }
 
+        const auditmessage = (message) => {
+            if(message) {
+                return(<View style={{...styles.generalFont, ...styles.redFont,...styles.bottomMargin15}}><Text style={{...regularFont,...styles.redFont}}>{message}</Text></View>)
+            }
+
+
+        }
+
 
 
         return (
 
             <View style={{ ...styles.generalFlex }}>
                 <View style={{ ...styles.flex1 }}>
+                    
+                    {auditmessage(auditmilestones)}
 
                     {activemilestone()}
 
@@ -485,7 +495,7 @@ class CriticalPath {
                         <Svg width={interval} height={yext + 200} viewBox={`0 0 ${interval} ${yext + 200}`}>
                             <G>
                                 <G>
-                                    {grid}
+                                    
                                     {showlabels()}
                                     <Polyline strokeWidth="1" stroke="rgb(0,0,0)" points={`2.5 0.38 2.5 ${yext} ${interval} ${yext}`} />
                                     {criticalpath.showmilestones.call(this)}

@@ -403,10 +403,10 @@ class MyProfile {
 
                 <View style={[styles.generalFlex, styles.bottomMargin10]}>
                     <View style={[styles.flex1]}>
-                        <Text style={[regularFont]}>Profile Image URL</Text>
-                        <TextInput style={[styles.defaultInput, regularFont]}
-                            value={myprofile.getprofileurl.call(this)}
-                           />
+                        <Text style={[regularFont]}>Profile Image URL:</Text>
+                        <Text style={[regularFont]}>
+                           {myprofile.getprofileurl.call(this)}
+                        </Text>
                     </View>
                 </View>
 

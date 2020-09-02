@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions, View, TouchableOpacity, Image, Text } from 'react-native';
 import { MyStylesheet } from './styles';
 import * as AppleAuthentication from 'expo-apple-authentication';
-import { inputUTCStringForLaborID, returnCompanyList, sorttimes, sortpart, getDateInterval, getScale, calculatemonth, calculateday, calculateyear } from './functions'
+import { inputUTCStringForLaborID, returnCompanyList, sorttimes, sortpart, getDateInterval, getScale, calculatemonth, calculateday, calculateyear,  calculateFloat, getDateTime,checkemptyobject } from './functions'
 import { SaveAllProfile, NodeLogin, LoadCSIs, AppleLogin } from './actions/api'
 import { PaymentsStripe as Stripe } from 'expo-payments-stripe';
 
@@ -376,6 +376,20 @@ class PM {
 
 
         })
+    }
+
+    let milestone_1 = "";
+    let milestone_2 = "";
+    for (let myprop in paths) {
+        milestone_1 = getmilestonebyid(paths, myprop)
+
+
+        for (let mypath in paths[myprop]['paths']) {
+            milestone_2 = getmilestonebyid(paths, mypath)
+            let float = calculateFloat(milestone_1.completion, milestone_2.start)
+            paths[myprop]['paths'][mypath]['float'] = float
+        }
+
     }
 
         return paths;
@@ -1471,6 +1485,129 @@ class PM {
         }
         return key;
     }
+
+    checkemptypathsbymilestoneid(milestoneid) {
+        const pm = new PM();
+        const paths = pm.getpaths.call(this)
+        const path = paths[milestoneid];
+        let empty = false;
+        if(checkemptyobject(path.paths)) {
+           empty  = true;
+        }
+        return empty; 
+        }
+
+    calcTotalProjectFloat(milestoneid) {
+        const pm = new PM();
+        const paths = pm.getpaths.call(this)
+        let checkcalc = true
+        let window = {};
+        let i =0;
+        let activemilestoneid = milestoneid;
+        while(checkcalc) {
+       
+       
+          window[`checkfloat_${i.toString()}`] = 0;
+              
+              
+              let j = 0;
+               checkcalc = false;
+               for (window[`mypath_${i.toString()}`] in paths[activemilestoneid]['paths']) {
+                   
+                if(!pm.checkemptypathsbymilestoneid.call(this,window[`mypath_${i.toString()}`])) {
+                  checkcalc = true 
+                 }
+                    
+                
+                    if (j === 0 || window[`checkfloat_${i.toString()}`] > pm.getfloatbymilestoneid.call(this, window[`mypath_${i.toString()}`])) {
+                       window[`checkfloat_${i.toString()}`] = pm.getfloatbymilestoneid.call(this, window[`mypath_${i.toString()}`])
+                       activemilestoneid = window[`mypath_${i.toString()}`]
+                   }
+                j+=1
+              }
+          
+               i+=1;
+        
+        }
+       let float = pm.getfloatbymilestoneid.call(this, milestoneid)
+       let projectfloat = 0;
+       for(let k=0;k<i;k++) {
+         projectfloat+= Number(window[`checkfloat_${k.toString()}`])
+       }
+       return float + projectfloat
+       }
+
+    getfloatbymilestoneid(milestoneid) {
+        const pm = new PM();
+        const paths = pm.getpaths.call(this)
+        let float = 0;
+        let i = 0;
+        for (let mypath in paths[milestoneid]['paths']) {
+
+            let floatcheck = paths[milestoneid]['paths'][mypath]['float']
+
+            if (floatcheck < float || i === 0) {
+                float = floatcheck
+
+            }
+
+            i += 1;
+        }
+        return float;
+
+    }
+
+
+    auditmilestones(milestones) {
+
+
+        const getmilestonebyid = (milestones, milestoneid) => {
+
+            let mymilestone = false;
+            if (milestones) {
+                // eslint-disable-next-line
+                milestones.map(milestone => {
+
+                    if (milestone.milestoneid === milestoneid) {
+
+                        mymilestone = milestone;
+                    }
+
+                })
+
+            }
+
+            return mymilestone;
+        }
+
+        let message = "";
+        // eslint-disable-next-line
+        milestones.map(milestone => {
+            let start = milestone.start;
+            // let completion = milestone.completion;
+            // message += `${start} ${completion}`
+
+            if (milestone.hasOwnProperty("predessors")) {
+                // eslint-disable-next-line
+                milestone.predessors.map(predessor => {
+                    let mypredessor = getmilestonebyid(milestones, predessor.predessor);
+                    //let predessorstart = mypredessor.start;
+                    let predessorcompletion = mypredessor.completion;
+                    if (getDateTime(start) < getDateTime(predessorcompletion)) {
+                        message += `${milestone.milestone} cannot start before ${mypredessor.milestone} completion `
+                    }
+
+                })
+
+            }
+
+        })
+
+
+        return message;
+    }
+
+    
 
     getactualmaterialsbyproject(projectid) {
         const pm = new PM();
