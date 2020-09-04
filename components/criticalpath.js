@@ -492,7 +492,7 @@ class CriticalPath {
                     {pathmenu()}
 
                     <ScrollView horizontal={true}>
-                        <Svg width={interval} height={yext + 200} viewBox={`0 0 ${interval} ${yext + 200}`}>
+                        <Svg width={0.5*interval} height={0.5*(yext + 200)} viewBox={`0 0 ${interval} ${yext + 200}`}>
                             <G>
                                 <G>
                                     

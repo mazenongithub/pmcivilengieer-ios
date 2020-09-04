@@ -70,7 +70,7 @@ class MilestoneID {
         const milestoneid = new MilestoneID();
 
         return (
-            <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+            <View style={{ ...styles.generalFlex, ...styles.bottomMargin15}} key={`search${milestone.milestoneid}`}>
                 <View style={{ ...styles.flex2 }}>
                     <Text style={{ ...regularFont }}>{milestone.milestone}</Text>
                 </View>
