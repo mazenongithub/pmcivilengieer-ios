@@ -1590,6 +1590,7 @@ class PM {
 
         let message = "";
         // eslint-disable-next-line
+        if(milestones) {
         milestones.map(milestone => {
             let start = milestone.start;
             // let completion = milestone.completion;
@@ -1610,6 +1611,8 @@ class PM {
             }
 
         })
+
+    }
 
 
         return message;

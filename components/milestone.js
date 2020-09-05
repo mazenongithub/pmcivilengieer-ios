@@ -79,8 +79,14 @@ class Milestone {
 
             } else {
                 let milestoneid = makeID.milestoneid.call(this)
-                let start = DateStringfromObj(this.state.start);
-                let completion = DateStringfromObj(this.state.completion);
+                const startyear = this.state.startdateyear;
+                const startday = this.state.startdateday;
+                const startmonth = this.state.startdatemonth;
+                const start = `${startyear}-${startmonth}-${startday}`
+                const completionyear = this.state.completiondateyear;
+                const completionday = this.state.completiondateday;
+                const completionmonth = this.state.completiondatemonth;
+                const completion = `${completionyear}-${completionmonth}-${completionday}`
                 let mymilestone = MyMilestone(milestoneid, milestone, start, completion)
 
                 if (myproject.hasOwnProperty("projectmilestones")) {
