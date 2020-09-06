@@ -18,7 +18,7 @@ class CriticalPath {
         const pm = new PM();
         const jsx = [];
         const styles = MyStylesheet();
-        const regularFont = pm.getRegularFont.call(this);
+        const regularFont = pm.getRularFont.call(this);
         const removeIcon = pm.getremoveicon.call(this);
         const criticalpath = new CriticalPath();
         if (this.state.activemilestoneid) {

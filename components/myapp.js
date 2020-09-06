@@ -41,7 +41,7 @@ class MyApp extends Component {
     super(props);
     this.state = {
       render: "", profilecheck: false, message: "", profile: "", emailaddress: '', emailaddresscheck: false, client: false,
-      clientid: false, activemilestoneid: false, start: '', end: '', milestone: '', activeprovider: '',activeengineer:'', role: '', firstname: '', lastname: '', phonenumber: '', profileurl: '',
+      clientid: "", activemilestoneid: false, start: '', end: '', milestone: '', activeprovider: '',activeengineer:'', role: '', firstname: '', lastname: '', phonenumber: '', profileurl: '',
       activeprojectid: false, scope: '', title: '', address: '', city: '', projectstate: '', zipcode: '', search: '', start: new Date(), completion: new Date(),
       slides: [], activeimage: 'projectmanagement', password: '', passwordcheck: false, charge: '', chargeamount: '', design:'', startcalender: true,
       completioncalender: true,
@@ -141,12 +141,12 @@ class MyApp extends Component {
   handleteam(projectid) {
     this.props.reduxNavigation({ navigation: 'team' })
     this.props.reduxProject({ projectid })
-    this.setState({ message: "" })
+    this.setState({ activeprovider:false,activeengineer:false, search:'', design:'' })
   }
   handlemilestones(projectid) {
     this.props.reduxNavigation({ navigation: 'milestones' })
     this.props.reduxProject({ projectid })
-    this.setState({ activemilestoneid:false })
+    this.setState({ activemilestoneid:false, milestone:''})
   }
 
   handleproposals(projectid) {
