@@ -141,17 +141,42 @@ class Milestone {
             this.setState({ activemilestoneid: milestoneid, startdateday, startdatemonth, startdateyear, completiondateday, completiondateyear, completiondatemonth })
         }
     }
-    confirmremovemilestone(mymilestone) {
+    confirmremovemilestone(milestone) {
         const pm = new PM();
         const params = pm.getactiveparams.call(this);
         const myuser = pm.getuser.call(this)
-        if(myuser) {
-        const i = pm.getprojectkeybyid.call(this,params.projectid)
-        const j = pm.getmilestonekeybyid.call(this,mymilestone.milestoneid);
-           
-                myuser.projects.myproject[i].projectmilestones.mymilestone.splice(j, 1);
-                this.props.reduxUser(myuser)
-                this.setState({ activemilestoneid: false })
+        if (myuser) {
+            const project = pm.getprojectbyid.call(this, params.projectid)
+
+            if (project) {
+                const i = pm.getprojectkeybyid.call(this, params.projectid)
+                const checkmilestone = pm.getmilestonebyid.call(this, milestone.milestoneid)
+                if (checkmilestone) {
+
+                    const j = pm.getmilestonekeybyid.call(this, milestone.milestoneid);
+                    myuser.projects.myproject[i].projectmilestones.mymilestone.splice(j, 1);
+                    // eslint-disable-next-line
+                    myuser.projects.myproject[i].projectmilestones.mymilestone.map(mymilestone => {
+
+                        if (mymilestone.hasOwnProperty("predessors")) {
+
+                            // eslint-disable-next-line
+                            mymilestone.predessors.map(predessor => {
+                                if (predessor.predessor === milestone.milestoneid) {
+                                    const k = pm.getmilestonekeybyid.call(this, mymilestone.milestoneid);
+                                    const l = pm.getpredessorkeybyid.call(this, mymilestone, predessor.predessor);
+                                    myuser.projects.myproject[i].projectmilestones.mymilestone[k].predessors.splice(l, 1)
+                                }
+                            })
+                        }
+                    })
+
+                    this.props.reduxUser(myuser)
+                    this.setState({ activemilestoneid: false })
+
+                }
+
+            }
 
         }
 
@@ -163,7 +188,7 @@ class Milestone {
             `Are you sure you want to remove ${mymilestone.milestone}?`,
             [
                 { text: 'Cancel', onPress: () => console.log('Cancel Remove milestone '), style: 'cancel' },
-                { text: 'OK', onPress: () => { milestone.confirmremovemilestone.call(this,mymilestone) } },
+                { text: 'OK', onPress: () => { milestone.confirmremovemilestone.call(this, mymilestone) } },
             ],
             { cancelable: false }
         )
@@ -228,58 +253,58 @@ class Milestone {
         const projectid = new ProjectID();
         const criticalpath = new CriticalPath();
         const myuser = pm.getuser.call(this);
-        if(myuser) {
-        return (
-            <View style={[styles.generalFlex]}>
-                <View style={[styles.flex1]}>
+        if (myuser) {
+            return (
+                <View style={[styles.generalFlex]}>
+                    <View style={[styles.flex1]}>
 
-                    <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                        <View style={[styles.flex1]}>
-                            <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/{myproject.title}</Text>
-                            <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/milestones</Text>
+                        <View style={[styles.generalFlex, styles.bottomMargin10]}>
+                            <View style={[styles.flex1]}>
+                                <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/{myproject.title}</Text>
+                                <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/milestones</Text>
+                            </View>
                         </View>
-                    </View>
 
-                    <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                        <View style={[styles.flex1]}>
-                            <Text style={[regularFont]}>Milestones</Text>
-                            <TextInput style={[regularFont, styles.defaultInput]}
-                                onChangeText={text => { milestone.handlemilestone.call(this, text) }}
-                                value={milestone.getmilestone.call(this)}
-                            />
+                        <View style={[styles.generalFlex, styles.bottomMargin10]}>
+                            <View style={[styles.flex1]}>
+                                <Text style={[regularFont]}>Milestones</Text>
+                                <TextInput style={[regularFont, styles.defaultInput]}
+                                    onChangeText={text => { milestone.handlemilestone.call(this, text) }}
+                                    value={milestone.getmilestone.call(this)}
+                                />
+                            </View>
                         </View>
-                    </View>
 
-                    <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                        <View style={[styles.flex1]}>         
-                            {start.showstartdate.call(this)}
+                        <View style={[styles.generalFlex, styles.bottomMargin10]}>
+                            <View style={[styles.flex1]}>
+                                {start.showstartdate.call(this)}
+                            </View>
                         </View>
-                    </View>
 
-                    <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                        <View style={[styles.flex1]}>
-                            {completion.showcompletiondate.call(this)}
+                        <View style={[styles.generalFlex, styles.bottomMargin10]}>
+                            <View style={[styles.flex1]}>
+                                {completion.showcompletiondate.call(this)}
+                            </View>
                         </View>
-                    </View>
 
-                    {milestone.showmilestoneids.call(this)}
+                        {milestone.showmilestoneids.call(this)}
 
-                    <View style={[styles.generalFlex]}>
-                        <View style={[styles.flex1, styles.bottomMargin30]}>
-                            {pm.showsaveproject.call(this)}
+                        <View style={[styles.generalFlex]}>
+                            <View style={[styles.flex1, styles.bottomMargin30]}>
+                                {pm.showsaveproject.call(this)}
+                            </View>
                         </View>
+
+
+                        {criticalpath.showpath.call(this)}
+
+
+                        {projectid.showprojectid.call(this, myproject)}
+
                     </View>
-
-
-                    {criticalpath.showpath.call(this)}
-
-               
-                    {projectid.showprojectid.call(this, myproject)}
-
-                </View>
-            </View>)
+                </View>)
         } else {
-            return(pm.loginMessage.call(this,"milestones"))
+            return (pm.loginMessage.call(this, "milestones"))
         }
 
     }
