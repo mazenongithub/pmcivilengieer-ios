@@ -17,34 +17,7 @@ class Landing {
                 title:'Project Management Online'
     
             },
-            {
-            imageid: 'register',
-            uri: require('../slides/register.png'),
-            capt: 'First registration is important. Register with your apple ID. Create a Profile URL and Provide your Email Address after signing in with Apple.  You will need a valid ID, apple ID, and email address together in order to register.  ',
-            title:'Quick Register'
-
-        },
-        {
-            imageid: 'applesignin',
-            uri: require('../slides/apple_sign.png'),
-            capt: 'Apple Sign in is Easy and it works. That way you do not have to remember your password. This login will work for all civilengineer.io Apps',
-            title:'Easy Apple Sign In'
-
-        },
-        {
-            imageid: 'profile',
-            uri: require('../slides/profile_1.png'),
-            capt: 'After successful login or register, your profile will appear. Also you will have access to the project components. ',
-            title:'Basic Profile'
-
-        },
-        {
-            imageid: 'profilepicture',
-            uri: require('../slides/profile_2.png'),
-            capt: 'Add an Image to the file browser and click on the foldericon to upload an Image. ',
-            title:'Upload Profile Picture'
-
-        },
+    
         {
             imageid: 'myprojects',
             uri: require('../slides/myprojects.png'),
@@ -57,13 +30,6 @@ class Landing {
             uri: require('../slides/charges.png'),
             capt: 'Add balance to your project using the charges component. This allows you to add balance to your project. This will allow you settle your invoices ',
             title:'Charges'
-
-        },
-        {
-            imageid: 'applepay',
-            uri: require('../slides/applepay.png'),
-            capt: 'Apple Pay is the safest and most secure way to deposit money into your project',
-            title:'Apple Pay'
 
         },
 
