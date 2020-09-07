@@ -32,7 +32,6 @@ class Landing {
             title:'Charges'
 
         },
-
     
         {
             imageid: 'milestone',
