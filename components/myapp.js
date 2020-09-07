@@ -146,7 +146,7 @@ class MyApp extends Component {
   handlemilestones(projectid) {
     this.props.reduxNavigation({ navigation: 'milestones' })
     this.props.reduxProject({ projectid })
-    this.setState({ activemilestoneid:false, milestone:''})
+    this.setState({ activemilestoneid:false, milestonefinist:''})
   }
 
   handleproposals(projectid) {

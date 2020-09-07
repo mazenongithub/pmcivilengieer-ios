@@ -120,7 +120,7 @@ class Milestone {
         const pm = new PM();
         const milestone = new Milestone();
         if (this.state.activemilestoneid === milestoneid) {
-            this.setState({ activemilestoneid: false })
+            this.setState({ activemilestoneid: false, milestonefinish:'' })
             milestone.reset.call(this)
         } else {
             const milestone = pm.getmilestonebyid.call(this, milestoneid)
