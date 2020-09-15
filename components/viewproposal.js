@@ -246,7 +246,7 @@ class ViewProposal {
         } else {
             profit = 1 + (profit / 100)
         }
-        let bidprice = ((directcost * profit) + myoverhead) + overhead;
+        let bidprice = (directcost * profit);
         return bidprice;
     }
     getunit(csiid) {
