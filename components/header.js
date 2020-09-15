@@ -93,8 +93,12 @@ class Header {
                     return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleinvoices(myproject.projectid) }}> invoices -> </Text>)
                 case "viewinvoice":
                     return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleinvoices(myproject.projectid) }}> invoices -> </Text>)
-                case "invoicelineitem":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleinvoices(myproject.projectid) }}> invoices -> </Text>)
+                case "specifications":
+                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlespecifications(myproject.projectid) }}> specifications -> </Text>)
+                case "specification":
+                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlespecifications(myproject.projectid) }}> specifications -> </Text>)
+                case "costestimate":
+                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlecostestimate(myproject.projectid) }}> costestimate -> </Text>)
                 default:
                     break;
             }
@@ -105,22 +109,25 @@ class Header {
         const navigation = pm.getnavigation.call(this)
         const regularFont = pm.getRegularFont.call(this)
         const params = pm.getactiveparams.call(this)
+        console.log("nav_4", navigation, params)
         const styles = MyStylesheet();
         const myproject = pm.getactiveproject.call(this)
         if (myproject) {
-        switch (navigation.navigation) {
-            case "viewproposal":
-                return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewproposal(params.proposalid) }}> {params.proposalid} </Text>)
-            case "proposallineitem":
-                return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewproposal(params.proposalid) }}> {params.proposalid} </Text>)
-            case "viewinvoice":
-                return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewinvoice(params.invoiceid) }}> {params.invoiceid} </Text>)
-            case "invoicelineitem":
-                return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewinvoice(params.invoiceid) }}> {params.invoiceid} </Text>)
-            default:
-                break
+            switch (navigation.navigation) {
+                case "viewproposal":
+                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewproposal(params.proposalid) }}> {params.proposalid} </Text>)
+                case "proposallineitem":
+                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewproposal(params.proposalid) }}> {params.proposalid} </Text>)
+                case "viewinvoice":
+                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewinvoice(params.invoiceid) }}> {params.invoiceid} </Text>)
+                case "invoicelineitem":
+                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewinvoice(params.invoiceid) }}> {params.invoiceid} </Text>)
+                case "specification":
+                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlespecification(params.specifications.csiid) }}> {params.specifications.csiid} </Text>)
+                default:
+                    break
+            }
         }
-    }
 
     }
     showHeader() {
