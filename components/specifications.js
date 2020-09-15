@@ -61,7 +61,7 @@ class Specifications  {
                     <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                         <View style={{ ...styles.flex1, ...styles.alignCenter }}>
                             <Text style={{  ...headerFont,...styles.generalFont, ...styles.alignCenter, ...styles.boldFont }} >/{myproject.title}</Text> 
-                            <Text style={{  ...headerFont,...styles.generalFont, ...styles.alignCenter, ...styles.boldFont }}>Specifications</Text>
+                            <Text style={{  ...headerFont,...styles.generalFont, ...styles.alignCenter, ...styles.boldFont }}>/specifications</Text>
                         </View>
                     </View>
 

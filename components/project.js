@@ -276,7 +276,8 @@ class Project {
 
                     <View style={[styles.generalFlex]}>
                         <View style={[styles.flex1]}>
-                            <Text style={[styles.alignCenter, headerFont, styles.boldFont]}> /projects/{myproject.title}</Text>
+                            <Text style={[styles.alignCenter, headerFont, styles.boldFont]}> /projects</Text>
+                            <Text style={[styles.alignCenter, headerFont, styles.boldFont]}> /{myproject.title}</Text>
                         </View>
                     </View>
 

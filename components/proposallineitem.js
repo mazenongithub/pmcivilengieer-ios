@@ -230,7 +230,7 @@ class ProposalLineItem {
         const params = pm.getactiveparams.call(this)
         const myproject = pm.getactiveproject.call(this)
         const proposalid = params.proposalid;
-        const csi = pm.getschedulecsibyid.call(this, params.proposal.csiid)
+        const csi = pm.getcsibyid.call(this, params.proposal.csiid)
         const proposallineitem = new ProposalLineItem();
         const labortotal = proposallineitem.getlabortotal.call(this)
         const materialtotal = proposallineitem.getmaterialtotal.call(this)
@@ -246,7 +246,8 @@ class ProposalLineItem {
 
                     <View style={[styles.generalFlex, styles.bottomMargin10]}>
                         <View style={[styles.flex1]}>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/proposal/{proposalid}/csi/{csi.csi}-{csi.title}</Text>
+                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/proposal</Text>
+                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{proposalid}/csi/{csi.csi}-{csi.title}</Text>
                         </View>
                     </View>
 

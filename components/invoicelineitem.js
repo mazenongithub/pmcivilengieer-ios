@@ -230,7 +230,7 @@ class InvoiceLineItem {
         const params = pm.getactiveparams.call(this)
         const myproject = pm.getactiveproject.call(this)
         const invoiceid = params.invoiceid;
-        const csi = pm.getactualcsibyid.call(this, params.invoice.csiid)
+        const csi = pm.getcsibyid.call(this, params.invoice.csiid)
         const invoicelineitem = new InvoiceLineItem();
         const labortotal = invoicelineitem.getlabortotal.call(this)
         const materialtotal = invoicelineitem.getmaterialtotal.call(this)
@@ -246,7 +246,8 @@ class InvoiceLineItem {
 
                     <View style={[styles.generalFlex, styles.bottomMargin10]}>
                         <View style={[styles.flex1]}>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/invoice/{invoiceid}/csi/{csi.csi}-{csi.title}</Text>
+                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/invoice/{invoiceid}</Text>
+                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/csi/{csi.csi}-{csi.title}</Text>
                         </View>
                     </View>
 

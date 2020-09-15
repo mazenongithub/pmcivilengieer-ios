@@ -324,7 +324,7 @@ class Charges {
                         <View style={{ ...styles.generalFlex }}>
                             <View style={{ ...styles.flex1 }}>
                                 <Text style={{ ...styles.alignCenter, ...headerFont, ...styles.generalFont, ...styles.boldFont }}>/{title}</Text>
-                                <Text style={{ ...styles.alignCenter, ...headerFont, ...styles.generalFont,...styles.boldFont }}>Charges</Text>
+                                <Text style={{ ...styles.alignCenter, ...headerFont, ...styles.generalFont,...styles.boldFont }}>/charges</Text>
                             </View>
                         </View>
 

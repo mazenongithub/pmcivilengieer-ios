@@ -74,7 +74,8 @@ showproposals() {
 
             <View style={[styles.generalFlex, styles.bottomMargin10]}>
                 <View style={[styles.flex1]}>
-                    <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/project/{myproject.title}/proposals/ </Text>
+                    <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/{myproject.title} </Text>
+                    <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/proposals/ </Text>
                 </View>
             </View>
 

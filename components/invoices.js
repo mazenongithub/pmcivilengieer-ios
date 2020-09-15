@@ -70,7 +70,8 @@ showinvoices() {
 
             <View style={[styles.generalFlex, styles.bottomMargin10]}>
                 <View style={[styles.flex1]}>
-                    <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/project/{myproject.title}/invoices/ </Text>
+                    <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/{myproject.title}</Text>
+                    <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/invoices/ </Text>
                 </View>
             </View>
 

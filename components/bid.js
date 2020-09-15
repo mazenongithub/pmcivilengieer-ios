@@ -364,7 +364,8 @@ class Bid {
 
                     <View style={[styles.generalFlex, styles.bottomMargin10]}>
                         <View style={[styles.flex1]}>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/bid</Text>
+                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}</Text>
+                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/bid</Text>
                         </View>
                     </View>
                     {bid.showbidtable.call(this)}

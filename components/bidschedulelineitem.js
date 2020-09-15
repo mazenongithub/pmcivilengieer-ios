@@ -227,9 +227,7 @@ class BidScheduleLineItem {
         const params = pm.getactiveparams.call(this)
         const myproject = pm.getactiveproject.call(this)
         const csi = pm.getcsibyid.call(this,params.bidschedule.csiid)
-        if(!csi) {
-            pm.loadcsis.call(this)
-        }
+        console.log("csi", csi)
         const bidschedulelineitem = new BidScheduleLineItem();
         const labortotal = bidschedulelineitem.getlabortotal.call(this)
         const materialtotal = bidschedulelineitem.getmaterialtotal.call(this)
@@ -245,7 +243,8 @@ class BidScheduleLineItem {
 
                     <View style={[styles.generalFlex, styles.bottomMargin10]}>
                         <View style={[styles.flex1]}>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/bidschedule/csi/{csi.csi}-{csi.title}</Text>
+                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/bidschedule</Text>
+                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/csi/{csi.csi}-{csi.title}</Text>
                         </View>
                     </View>
 

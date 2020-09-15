@@ -438,7 +438,8 @@ class ViewProposal {
 
                         <View style={[styles.generalFlex, styles.bottomMargin10]}>
                             <View style={[styles.flex1]}>
-                                <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/proposal/{proposalid}</Text>
+                                <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}</Text>
+                                <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/proposal/{proposalid}</Text>
                             </View>
                         </View>
                         {viewproposal.showbidtable.call(this)}

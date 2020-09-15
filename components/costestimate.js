@@ -319,8 +319,9 @@ class CostEstimate {
 
                     <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                         <View style={{ ...styles.flex1}}>
-                            <Text style={{...headerFont, ...styles.boldFont, ...styles.alignCenter }}> Engineer Estimate </Text> 
-                           <Text style={{...headerFont, ...styles.boldFont, ...styles.alignCenter }}> {myproject.title} </Text> 
+                         
+                           <Text style={{...headerFont, ...styles.boldFont, ...styles.alignCenter }}> /{myproject.title} </Text> 
+                           <Text style={{...headerFont, ...styles.boldFont, ...styles.alignCenter }}> /costestimate </Text> 
                         </View>
                     </View>
 
