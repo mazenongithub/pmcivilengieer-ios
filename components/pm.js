@@ -1045,7 +1045,7 @@ class PM {
         return ({ width: 41, height: 34 })
     }
     getsearchphotolarge() {
-        return ({ width: 160, height: 120 })
+        return ({ width: 80, height: 60})
     }
 
     getteambyid(providerid) {

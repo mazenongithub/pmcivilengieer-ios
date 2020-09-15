@@ -4,7 +4,7 @@ import { MyStylesheet } from './styles';
 import PM from './pm'
 import ProjectID from './projectid'
 import { TeamMember, returnCompanyList } from './functions';
-import {LoadAllUsers} from './actions/api';
+import { LoadAllUsers } from './actions/api';
 
 class Team {
 
@@ -112,7 +112,7 @@ class Team {
 
         return (<View style={{ ...styles.generalContainer, ...styles.generalFont, ...regularFont, ...styles.bottomMargin15 }} key={`design${myuser.providerid}`}>
             <View style={[styles.generalFlex]}>
-                <View style={[styles.flex3,activebackground()]}>
+                <View style={[styles.flex3, activebackground()]}>
                     <Text style={[headerFont, styles.alignCenter]}
                         onPress={() => { team.makeengineeractive.call(this, myuser.providerid) }}>/{myuser.profile}</Text>
                 </View>
@@ -134,7 +134,7 @@ class Team {
                     </TouchableOpacity>
                 </View>
             </View>
-          
+
 
             {Role()}
 
@@ -170,7 +170,7 @@ class Team {
         return myproviders;
     }
     validateengineer(providerid) {
-       
+
         const pm = new PM();
         const myproject = pm.getactiveproject.call(this)
         const myteam = pm.getengineering.call(this, myproject.projectid);
@@ -255,22 +255,30 @@ class Team {
         const team = new Team();
         const searchphoto = pm.getsearchphoto.call(this)
 
-        const SearchPhoto = () => {
-            if (myuser.profileurl) {
+        const icon = (myuser) => {
+            if(myuser.profileurl) {
+                return(<Image source={{ uri: `${myuser.profileurl}` }}
+                resizeMethod='scale'
+                style={[searchphoto, styles.showBorder]}
+            />)
+            } else {
+             return(<Image
+                    source={require(`./png/2x/defaultphoto.png`)}
+                    resizeMethod='scale'
+                    style={[searchphoto, styles.showBorder]}
+                />)
+            }
+        }
+
+        const SearchPhoto = (myuser) => {
+    
                 return (
-                    <View style={{ ...styles.generalContainer, ...styles.searchphoto, ...styles.showBorder, ...styles.alignContentCenter }}>
-
-
+                    <View style={{ ...styles.generalContainer, ...styles.searchphoto,  ...styles.alignContentCenter }}>
                         <TouchableOpacity onPress={() => team.addDesignTeam.call(this, myuser.providerid)}>
-                            <Image source={{ uri: `${myuser.profileurl}` }}
-                                resizeMethod='scale'
-                                style={[searchphoto, styles.showBorder]}
-                            />
+                            {icon(myuser)}
                         </TouchableOpacity>
                     </View>)
-            } else {
-                return;
-            }
+           
         }
 
         const location = () => {
@@ -293,7 +301,7 @@ class Team {
         return (
             <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }} onPress={() => team.addDesignTeam.call(this, myuser.providerid)} key={`design${myuser.providerid}`}>
                 <View style={{ ...styles.flex1 }}>
-                    {SearchPhoto()}
+                    {SearchPhoto(myuser)}
                 </View>
                 <View style={{ ...styles.flex3 }}>
                     <Text style={{ ...styles.generalFont, ...regularFont }} onPress={() => team.addDesignTeam.call(this, myuser.providerid)}> {myuser.firstname} {myuser.lastname}{location()}</Text>
@@ -303,48 +311,46 @@ class Team {
 
     }
 
-
-
     showsearchid(myuser) {
         const pm = new PM();
         const styles = MyStylesheet();
         const regularFont = pm.getRegularFont.call(this)
         const searchphoto = pm.getsearchphoto.call(this)
         const team = new Team();
-        const SearchPhoto = () => {
+
+        const searchprofilephoto = (myuser) => {
             if (myuser.profileurl) {
-                return (<View style={{ ...styles.generalContainer, ...styles.searchphoto, ...styles.showBorder, ...styles.alignContentCenter }}>
-
-
-                    <TouchableOpacity onPress={() => team.addDesignTeam.call(this, myuser.providerid)}>
-                        <Image source={{ uri: `${myuser.profileurl}` }}
-                            resizeMethod='scale'
-                            style={[searchphoto, styles.showBorder]}
-                        />
-                    </TouchableOpacity>
-                </View>)
+                return (<Image source={{ uri: `${myuser.profileurl}` }}
+                    resizeMethod='scale'
+                    style={[searchphoto, styles.showBorder]}
+                />)
             } else {
-                return;
+                return (<Image
+                    source={require(`./png/2x/defaultphoto.png`)}
+                    resizeMethod='scale'
+                    style={[searchphoto, styles.showBorder]}
+                />)
             }
         }
-
-
+        const SearchPhoto = (myuser) => {
+            return (
+                <View style={{ ...styles.generalContainer, ...styles.searchphoto, ...styles.alignContentCenter }}>
+                    <TouchableOpacity onPress={() => team.addDesignTeam.call(this, myuser.providerid)}>
+                        {searchprofilephoto(myuser)}
+                    </TouchableOpacity>
+                </View>)
+        }
 
         return (
-            <View style={[styles.generalFlex, styles.bottomMargin10]} key={myuser.providerid}>
+            <View style={[styles.generalFlex, styles.bottomMargin10]} key={myuser.providerid} >
                 <View style={[styles.flex1]}>
-
-
-                    {SearchPhoto()}
-
-
+                    {SearchPhoto(myuser)}
                 </View>
                 <View style={[styles.flex3, regularFont]}>
                     <Text style={[regularFont]} onPress={() => { team.addteam.call(this, myuser.providerid) }}>{myuser.firstname} {myuser.lastname} </Text>
                 </View>
             </View>
         )
-
 
     }
 
@@ -506,10 +512,10 @@ class Team {
             } else {
                 return (
                     <TouchableOpacity onPress={() => { team.makeprovideractive.call(this, myuser.providerid) }}>
-                    <Image source={require(`./png/2x/defaultphoto.png`)}
-                        style={[teamProfile, styles.showBorder]}
-                        resizeMethod='scale'
-                    />
+                        <Image source={require(`./png/2x/defaultphoto.png`)}
+                            style={[teamProfile, styles.showBorder]}
+                            resizeMethod='scale'
+                        />
                     </TouchableOpacity>
                 );
             }
@@ -533,7 +539,7 @@ class Team {
 
 
                     <View style={[styles.generalFlex]}>
-                        <View style={[styles.flex3,activebackground()]}>
+                        <View style={[styles.flex3, activebackground()]}>
                             <Text style={[headerFont, styles.alignCenter]} onPress={() => { team.makeprovideractive.call(this, myuser.providerid) }}>/{myuser.profile}</Text>
                         </View>
                         <View style={[styles.flex1, styles.flexRow, styles.alignContentRight]}>
@@ -546,7 +552,7 @@ class Team {
 
                         </View>
                     </View>
-                    
+
                     <View style={[styles.generalFlex]}>
                         <View style={[styles.flex1, styles.alignContentCenter]}>
                             {SearchPhoto()}
@@ -570,15 +576,15 @@ class Team {
         const pm = new PM();
         const myuser = pm.getuser.call(this)
         const team = new Team();
-        const validate = team.validateengineer.call(this,providerid)
-        if(validate) {
-        if (myuser) {
-            const activeparams = pm.getactiveparams.call(this)
-            const projectid = activeparams.projectid;
-            const myproject = pm.getprojectbyid.call(this, projectid);
-            if (myproject) {
-                const i = pm.getprojectkeybyid.call(this, projectid);
-               
+        const validate = team.validateengineer.call(this, providerid)
+        if (validate) {
+            if (myuser) {
+                const activeparams = pm.getactiveparams.call(this)
+                const projectid = activeparams.projectid;
+                const myproject = pm.getprojectbyid.call(this, projectid);
+                if (myproject) {
+                    const i = pm.getprojectkeybyid.call(this, projectid);
+
                     const myengineers = pm.getengineering.call(this, projectid);
                     const role = this.state.role;
                     let newteam = TeamMember(providerid, role)
@@ -592,13 +598,13 @@ class Team {
                     }
                     this.props.reduxUser(myuser);
                     this.setState({ activeengineer: myuser.providerid })
-                
+
+
+                }
 
             }
 
         }
-
-    }
     }
 
     showteamids() {
@@ -695,13 +701,13 @@ class Team {
         const team = new Team();
         const myuser = pm.getuser.call(this);
         const allusers = pm.getallusers.call(this);
-        
-        if(!allusers) {
+
+        if (!allusers) {
             team.loadallusers.call(this)
 
         }
 
-        
+
         if (myuser) {
             return (
                 <View style={[styles.generalFlex]}>
