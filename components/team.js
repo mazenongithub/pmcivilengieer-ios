@@ -578,7 +578,7 @@ class Team {
             const myproject = pm.getprojectbyid.call(this, projectid);
             if (myproject) {
                 const i = pm.getprojectkeybyid.call(this, projectid);
-                if (validate) {
+               
                     const myengineers = pm.getengineering.call(this, projectid);
                     const role = this.state.role;
                     let newteam = TeamMember(providerid, role)
@@ -592,7 +592,7 @@ class Team {
                     }
                     this.props.reduxUser(myuser);
                     this.setState({ activeengineer: myuser.providerid })
-                }
+                
 
             }
 
