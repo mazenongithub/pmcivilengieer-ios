@@ -86,11 +86,7 @@ class MyApp extends Component {
 
       let response = await CheckUserLogin();
 
-      if (response.hasOwnProperty("allusers")) {
-        let companys = returnCompanyList(response.allusers);
-        this.props.reduxAllCompanys(companys)
-        this.props.reduxAllUsers(response.allusers);
-      }
+   
       if (response.hasOwnProperty("myuser")) {
 
         this.props.reduxUser(response.myuser);
@@ -146,7 +142,7 @@ class MyApp extends Component {
   handlemilestones(projectid) {
     this.props.reduxNavigation({ navigation: 'milestones' })
     this.props.reduxProject({ projectid })
-    this.setState({ activemilestoneid:false, milestonefinist:''})
+    this.setState({ activemilestoneid:false, milestonefinish:''})
   }
 
   handleproposals(projectid) {

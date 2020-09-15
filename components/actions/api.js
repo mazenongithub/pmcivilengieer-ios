@@ -3,7 +3,10 @@ import EnvironmentalVariables from '../functions/enviornmentalvariables';
 
 export async function LoadAllUsers() {
 
-    let APIURL = `${process.env.REACT_APP_SERVER_API}/construction/loadallusers`
+    const variables = new EnvironmentalVariables();
+    const serverAPI = variables.getvariables.call(this).serverAPI;
+
+    let APIURL = `${serverAPI}/construction/loadallusers`
 
     return fetch(APIURL, { credentials: 'include' }).then(resp => {
 
