@@ -93,6 +93,8 @@ class Header {
                     return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleinvoices(myproject.projectid) }}> invoices -> </Text>)
                 case "viewinvoice":
                     return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleinvoices(myproject.projectid) }}> invoices -> </Text>)
+                case "invoicelineitem":
+                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleinvoices(myproject.projectid) }}> invoices -> </Text>)
                 case "specifications":
                     return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlespecifications(myproject.projectid) }}> specifications -> </Text>)
                 case "specification":
@@ -114,6 +116,10 @@ class Header {
         const myproject = pm.getactiveproject.call(this)
         if (myproject) {
             switch (navigation.navigation) {
+                case "bidlineitem":
+                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlebidlineitem(params.bid.csiid) }}> {params.bid.csiid} </Text>)
+                case "bidschedulelineitem":
+                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlebidschedulelineitem(params.bidschedule.csiid) }}> {params.bidschedule.csiid} </Text>)
                 case "viewproposal":
                     return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewproposal(params.proposalid) }}> {params.proposalid} </Text>)
                 case "proposallineitem":
