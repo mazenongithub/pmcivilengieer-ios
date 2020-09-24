@@ -9,6 +9,52 @@ import { PaymentsStripe as Stripe } from 'expo-payments-stripe';
 
 class PM {
 
+    getbidkeybyid(projectid,csiid) {
+        const pm = new PM();
+        let key = false;
+        const bid = pm.getprojectbid.call(this,projectid)
+        if (bid) {
+            // eslint-disable-next-line
+            bid.map((item, i) => {
+                if (item.csiid === csiid) {
+                    key = i;
+                }
+            })
+        }
+
+        return key;
+    }
+
+    getbidbyid(projectid,csiid) {
+        const pm = new PM();
+        let myitem = false;
+        const bid = pm.getprojectbid.call(this, projectid)
+        if (bid) {
+            // eslint-disable-next-line
+            bid.map(item => {
+                if (item.csiid === csiid) {
+                    myitem = item;
+                }
+            })
+        }
+
+        return myitem;
+    }
+
+
+    getprojectbid(projectid) {
+        const pm = new PM();
+        let bid = false;
+        const project = pm.getprojectbyid.call(this,projectid)
+        if (project) {
+            if (project.hasOwnProperty("bid")) {
+                bid = project.bid;
+            }
+
+        }
+        return bid;
+    }
+
     getengineerkeybyid(projectid,engineerid) {
         const pm = new PM();
         const engineers = pm.getengineering.call(this,projectid);
@@ -44,6 +90,23 @@ class PM {
         return myengineer;
 
     }
+
+    getbidschedulekeybyid(projectid,csiid) {
+        const pm = new PM();
+        let key = false;
+        const bidschedule = pm.getbidschedule.call(this,projectid)
+        if (bidschedule) {
+            // eslint-disable-next-line
+            bidschedule.map((item, i) => {
+                if (item.csiid === csiid) {
+                    key = i;
+                }
+            })
+        }
+
+        return key;
+    }
+
 
     getengineering(projectid) {
         const pm = new PM();
@@ -1046,6 +1109,36 @@ class PM {
     }
     getsearchphotolarge() {
         return ({ width: 80, height: 60})
+    }
+
+    getbidschedule(projectid) {
+        const pm = new PM();
+        let bidschedule = false;
+        const project = pm.getprojectbyid.call(this,projectid)
+        if (project) {
+            if (project.hasOwnProperty("bidschedule")) {
+                bidschedule = project.bidschedule;
+            }
+
+        }
+        return bidschedule;
+    }
+
+
+    getbidschedulebyid(projectid,csiid) {
+        const pm = new PM();
+        let myitem = false;
+        const bidschedule = pm.getbidschedule.call(this,projectid)
+        if (bidschedule) {
+            // eslint-disable-next-line
+            bidschedule.map(item => {
+                if (item.csiid === csiid) {
+                    myitem = item;
+                }
+            })
+        }
+
+        return myitem;
     }
 
     getteambyid(providerid) {

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, TextInput } from 'react-native'
 import PM from './pm'
 import { MyStylesheet } from './styles'
-import { CreateBidScheduleItem,DirectCostForLabor,DirectCostForMaterial,DirectCostForEquipment,sorttimes,ProfitForLabor,ProfitForMaterial,ProfitForEquipment} from './functions'
+import { CreateBidScheduleItem,DirectCostForLabor,DirectCostForMaterial,DirectCostForEquipment,sorttimes,ProfitForLabor,ProfitForMaterial,ProfitForEquipment, isNumeric} from './functions'
 
 class Bid {
     getinvoices() {
@@ -222,54 +222,34 @@ class Bid {
         let bidprice = directcost * profit;
         return bidprice;
     }
+
+
     getunit(csiid) {
-        let unit = ""
         const pm = new PM();
-      
-        let myinvoice = pm.getinvoices.call(this)
-        if (myinvoice) {
-            // eslint-disable-next-line
-            myinvoice.map(invoices => {
-
-                if (invoices.hasOwnProperty("bid")) {
-                    // eslint-disable-next-line
-                    invoices.bid.biditem.map(item => {
-                        if (item.csiid === csiid) {
-                            unit = item.unit
-                        }
-                    })
-                }
-
-
-            })
-
+        let unit= "";
+        const activeproject = pm.getactiveparams.call(this)
+    
+        const item = pm.getbidbyid.call(this, activeproject.projectid,csiid);
+        if (item) {
+            unit = item.unit;
         }
         return unit;
     }
-    getquantity(csiid) {
-        let quantity = 0;
-        const pm = new PM();
-        let myinvoice = pm.getinvoices.call(this)
-        if (myinvoice) {
-            // eslint-disable-next-line
-            myinvoice.map(invoices => {
 
-                if (invoices.hasOwnProperty("bid")) {
-                    // eslint-disable-next-line
-                    invoices.bid.biditem.map(item => {
-                        if (item.unit && item.unit !== 'Lump Sum' && item.unit != 'L.S.' && item.csiid === csiid) {
-                            quantity += Number(item.quantity);
-                        }
-                    })
-                }
+    
+   
+getquantity(csiid) {
+    const pm = new PM();
+    let quantity = "";
+    const activeproject = pm.getactiveparams.call(this)
 
-
-            })
-
-        }
-        return quantity;
-
+    const item = pm.getbidbyid.call(this, activeproject.projectid,csiid);
+    if (item) {
+        quantity = item.quantity;
     }
+    return quantity;
+}
+
 
     getunitprice(csiid) {
         const bid = new Bid();
@@ -284,6 +264,94 @@ class Bid {
         }
 
 
+    }
+
+    handleunit(csiid, unit) {
+        const pm = new PM();
+        const activeparams = pm.getactiveparams.call(this)
+     
+        const myuser = pm.getuser.call(this)
+        if (myuser) {
+            const myproject = pm.getprojectbyid.call(this,activeparams.projectid);
+            if (myproject) {
+                const i = pm.getprojectkeybyid.call(this, myproject.projectid);
+                const actualitems = pm.getprojectbid.call(this, myproject.projectid)
+                if(actualitems) {
+    
+                const actualitem = pm.getbidbyid.call(this, myproject.projectid,csiid)
+                if (actualitem) {
+                    const j = pm.getbidkeybyid.call(this, myproject.projectid,csiid)
+                    myuser.projects.myproject[i].bid[j].unit = unit;
+                    this.props.reduxUser(myuser);
+                    this.setState({ render: 'render' })
+                   
+                } else {
+                    let newItem = {csiid, unit, quantity:''}
+                    myuser.projects.myproject[i].bid.push(newItem)
+                    this.props.reduxUser(myuser);
+                    this.setState({ render: 'render' })
+                }
+    
+            } else {
+                let newItem = {csiid, quantity:'', unit}
+                myuser.projects.myproject[i].bid = [newItem]
+                this.props.reduxUser(myuser);
+                this.setState({ render: 'render' })
+            }
+    
+           
+    
+    
+            }
+        }
+    
+    
+    }
+
+
+    handlequantity(csiid, quantity) {
+        const pm = new PM();
+        const activeparams = pm.getactiveparams.call(this)
+        if(isNumeric(quantity)) {
+        const myuser = pm.getuser.call(this)
+        if (myuser) {
+            const myproject = pm.getprojectbyid.call(this,activeparams.projectid);
+            if (myproject) {
+                const i = pm.getprojectkeybyid.call(this, myproject.projectid);
+                const actualitems = pm.getprojectbid.call(this, myproject.projectid)
+                if(actualitems) {
+    
+                const actualitem = pm.getbidbyid.call(this, myproject.projectid,csiid)
+                if (actualitem) {
+                    const j = pm.getbidkeybyid.call(this, myproject.projectid,csiid)
+                    myuser.projects.myproject[i].bid[j].quantity = quantity;
+                    this.props.reduxUser(myuser);
+                    this.setState({ render: 'render' })
+                   
+                } else {
+                    let newItem = {csiid, quantity, unit:''}
+                    myuser.projects.myproject[i].bid.push(newItem)
+                    this.props.reduxUser(myuser);
+                    this.setState({ render: 'render' })
+                }
+    
+            } else {
+                let newItem = {csiid, quantity, unit:''}
+                myuser.projects.myproject[i].bid = [newItem]
+                this.props.reduxUser(myuser);
+                this.setState({ render: 'render' })
+            }
+    
+           
+    
+    
+            }
+        }
+    
+    } else {
+        alert(`${quantity} should be numeric `)
+    }
+    
     }
 
 
@@ -315,12 +383,18 @@ class Bid {
                             </View>
                             <View style={[styles.flex1, styles.showBorder]}>
                                 <Text style={[regularFont, styles.alignCenter]}>Quantity</Text>
-                                <Text style={[ regularFont, styles.alignCenter]}>{quantity.toString()}</Text>
+                                <TextInput value={bid.getquantity.call(this,item.csiid) }
+                                 onChangeText={text=>{bid.handlequantity.call(this,item.csiid,text)}} 
+                                 style={[ regularFont, styles.alignCenter, styles.defaultInput]} />
                             </View>
                             <View style={[styles.flex1, styles.showBorder]}>
 
                                 <Text style={[regularFont, styles.alignCenter]}>Unit</Text>
-                                <Text style={[styles.alignCenter, regularFont]}>{unit} </Text>
+                                <TextInput
+                                 style={[styles.alignCenter, regularFont, styles.defaultInput]} 
+                                 value={bid.getunit.call(this, item.csiid)}
+                                 onChangeText={text=>{bid.handleunit.call(this,item.csiid,text)}}
+                                 />
                             </View>
                         </View>
 
@@ -339,7 +413,7 @@ class Bid {
                             </View>
                             <View style={[styles.flex1, styles.showBorder]}>
                                 <Text style={[regularFont, styles.alignCenter]}>Unit Price</Text>
-                                <Text style={[regularFont, styles.alignCenter]}>${unitprice}</Text>
+                                <Text style={[regularFont, styles.alignCenter]}>${unitprice}/{unit}</Text>
                             </View>
                         </View>
 

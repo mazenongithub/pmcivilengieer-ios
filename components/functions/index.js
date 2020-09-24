@@ -324,6 +324,17 @@ export function getDateInterval(start, completion) {
     return (interval)
 }
 
+export function isNumeric(val) {
+
+    if (val) {
+        return (!isNaN(val))
+    } else {
+        return (true);
+    }
+
+
+}
+
 export function CreatePredessor(predessor, type) {
     return ({ predessor, type })
 }
