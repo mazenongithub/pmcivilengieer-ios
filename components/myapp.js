@@ -207,8 +207,9 @@ class MyApp extends Component {
 
   }
 
-  handlespecifications() {
+  handlespecifications(projectid) {
     this.props.reduxNavigation({ navigation: 'specifications' })
+    this.props.reduxProject({ projectid })
     this.setState({ message: "" })
 
   }

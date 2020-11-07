@@ -148,8 +148,6 @@ class MyProjects {
                 let i = pm.getprojectkeybyid.call(this, myproject.projectid);
                 myuser.projects.myproject[i].scope = scope;
                 this.props.reduxUser(myuser)
-
-
                 this.setState({ message: '' })
 
             }

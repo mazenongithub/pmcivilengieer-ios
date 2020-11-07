@@ -1,5 +1,27 @@
 import EnvironmentalVariables from '../functions/enviornmentalvariables';
+export async function LoadSpecifications(projectid) {
+    const variables = new EnvironmentalVariables();
+    const serverAPI = variables.getvariables.call(this).serverAPI;
 
+    let APIURL = `${serverAPI}/projectmanagement/${projectid}/specifications`
+
+    return fetch(APIURL, { credentials: 'include' }).then(resp => {
+
+        if (!resp.ok) {
+            if (resp.status >= 400 && resp.status < 500) {
+                return resp.json().then(data => {
+                    throw data.message
+                })
+            }
+            else {
+                let err =  'No network connection or the Server is not responding';
+                throw err;
+            }
+        }
+
+        return resp.json();
+    })
+}
 
 export async function LoadAllUsers() {
 

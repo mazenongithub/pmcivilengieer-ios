@@ -111,7 +111,6 @@ class Header {
         const navigation = pm.getnavigation.call(this)
         const regularFont = pm.getRegularFont.call(this)
         const params = pm.getactiveparams.call(this)
-        console.log("nav_4", navigation, params)
         const styles = MyStylesheet();
         const myproject = pm.getactiveproject.call(this)
         if (myproject) {
