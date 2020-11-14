@@ -7,6 +7,12 @@ export function MyStylesheet() {
         topMargin35: {
             marginTop: 35
         },
+        topHeader:{
+            backgroundColor: '#8C1837'
+        },
+        generalPadding:{
+            padding:5
+        },
         generalFlex: {
             flexDirection: 'row',
             flexWrap: 'wrap',

@@ -41,9 +41,9 @@ class MyApp extends Component {
     super(props);
     this.state = {
       render: "", profilecheck: false, message: "", profile: "", emailaddress: '', emailaddresscheck: false, client: false,
-      clientid: "", activemilestoneid: false, start: '', end: '', milestone: '', activeprovider: '',activeengineer:'', role: '', firstname: '', lastname: '', phonenumber: '', profileurl: '',
+      clientid: "", activemilestoneid: false, start: '', end: '', milestone: '', activeprovider: '', activeengineer: '', role: '', firstname: '', lastname: '', phonenumber: '', profileurl: '',
       activeprojectid: false, scope: '', title: '', address: '', city: '', projectstate: '', zipcode: '', search: '', start: new Date(), completion: new Date(),
-      slides: [], activeimage: 'projectmanagement', password: '', passwordcheck: false, charge: '', chargeamount: '', design:'', startcalender: true,
+      slides: [], activeimage: 'projectmanagement', password: '', passwordcheck: false, charge: '', chargeamount: '', design: '', startcalender: true,
       completioncalender: true,
       startdateday: '',
       startdatemonth: '',
@@ -51,9 +51,13 @@ class MyApp extends Component {
       completiondateday: '',
       completiondatemonth: '',
       completiondateyear: '',
-      milestonestart:'',
-      milestonefinish:''
+      milestonestart: '',
+      milestonefinish: '',
+      width: 0,
+      height: 0,
+      menu:'open'
     }
+    this.updatedimesions = this.updatedimesions.bind(this)
   }
 
 
@@ -70,9 +74,19 @@ class MyApp extends Component {
     this.checkuserlogin();
     milestone.completiondatedefault.call(this);
     milestone.startdatedefault.call(this)
+    Dimensions.addEventListener('change', this.updatedimesions)
+    this.setState({ width: Dimensions.get('window').width, height: Dimensions.get('window').height })
 
 
   }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this.updatedimesions)
+  }
+  updatedimesions() {
+    this.setState({ width: Dimensions.get('window').width, height: Dimensions.get('window').height })
+  }
+
   async checkapplepay() {
     const response = await Stripe.canMakeApplePayPaymentsAsync();
 
@@ -86,7 +100,7 @@ class MyApp extends Component {
 
       let response = await CheckUserLogin();
 
-   
+
       if (response.hasOwnProperty("myuser")) {
 
         this.props.reduxUser(response.myuser);
@@ -137,12 +151,12 @@ class MyApp extends Component {
   handleteam(projectid) {
     this.props.reduxNavigation({ navigation: 'team' })
     this.props.reduxProject({ projectid })
-    this.setState({ activeprovider:false,activeengineer:false, search:'', design:'' })
+    this.setState({ activeprovider: false, activeengineer: false, search: '', design: '' })
   }
   handlemilestones(projectid) {
     this.props.reduxNavigation({ navigation: 'milestones' })
     this.props.reduxProject({ projectid })
-    this.setState({ activemilestoneid:false, milestonefinish:''})
+    this.setState({ activemilestoneid: false, milestonefinish: '' })
   }
 
   handleproposals(projectid) {
@@ -307,13 +321,13 @@ class MyApp extends Component {
         return (charges.getcharges.call(this))
       case 'milestones':
         return (milestone.showmilestone.call(this));
-        case 'costestimate':
+      case 'costestimate':
         return (costestimate.showcostestimate.call(this))
-        case 'estimatelineitem':
+      case 'estimatelineitem':
         return (lineitem.showlineitem.call(this))
       case 'specifications':
         return (specifications.getspecifications.call(this))
-        case 'specification':
+      case 'specification':
         return (specification.getspecification.call(this))
       case 'proposals':
         return (proposals.showproposals.call(this))
@@ -342,17 +356,19 @@ class MyApp extends Component {
   render() {
     const styles = MyStylesheet();
     const header = new Header();
+ 
     return (
       <View style={[styles.generalFlex, styles.topMargin35, styles.leftMargin5]}>
 
         <View style={[styles.flex1]}>
-          {header.showHeader.call(this)}
+          {header.showheader.call(this)}
           <ScrollView>
             {this.mainbody()}
             <View style={{ height: Dimensions.get('window').height }}>
 
             </View>
           </ScrollView>
+      
         </View>
       </View>
 
@@ -370,7 +386,7 @@ function mapStateToProps(state) {
     project: state.project,
     allusers: state.allusers,
     allcompanys: state.allcompanys,
-    csis:state.csis
+    csis: state.csis
   }
 }
 

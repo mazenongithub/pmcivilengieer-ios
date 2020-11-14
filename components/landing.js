@@ -177,7 +177,7 @@ class Landing {
         const landing = new Landing();
         const activeimage = landing.getactiveimage.call(this)
         if (activeimage) {
-            return (landing.showimage(activeimage))
+            return (landing.showimage.call(this,activeimage))
         }
     }
     showimages() {

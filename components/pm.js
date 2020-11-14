@@ -3,7 +3,7 @@ import { Dimensions, View, TouchableOpacity, Image, Text } from 'react-native';
 import { MyStylesheet } from './styles';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { inputUTCStringForLaborID, returnCompanyList, sorttimes, sortpart, getDateInterval, getScale, calculatemonth, calculateday, calculateyear,  calculateFloat, getDateTime,checkemptyobject } from './functions'
-import { SaveAllProfile, NodeLogin, LoadCSIs, AppleLogin, LoadSpecifications } from './actions/api'
+import { SaveAllProfile, NodeLogin, LoadCSIs, AppleLogin, LoadSpecifications, LogoutUser } from './actions/api'
 import { PaymentsStripe as Stripe } from 'expo-payments-stripe';
 
 
@@ -189,6 +189,18 @@ class PM {
         return mycsi;
     }
 
+    async logoutuser() {
+        try {
+            let response = await LogoutUser();
+            if (response.hasOwnProperty("message")) {
+                this.props.reduxUser(response)
+            }
+        } catch (err) {
+            alert(err)
+        }
+
+    }
+
     getsectionbyid(projectid, csiid, sectionid) {
         const pm = new PM();
         const spec = pm.getspecficationbycsi.call(this, projectid, csiid)
@@ -320,11 +332,15 @@ class PM {
     }
 
     getHeaderFont() {
-        const width = Dimensions.get('window').width;
-        if (width > 400) {
-            return ({ fontSize: 24 })
+        if(this.state.width>1200) {
+            return({fontSize:36})
+
+        } else if (this.state.width>600) {
+
+            return({fontSize:30})
+            
         } else {
-            return ({ fontSize: 20 })
+            return({fontSize:24})
         }
     }
     getsaveprofileicon() {

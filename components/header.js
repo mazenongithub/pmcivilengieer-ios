@@ -1,217 +1,182 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native'
+import PM from './pm';
 import { MyStylesheet } from './styles';
-import PM from './pm'
-import { LogoutUser } from './actions/api'
+
 
 class Header {
-    async logoutuser() {
-        try {
-            let response = await LogoutUser();
-            if (response.hasOwnProperty("message")) {
-                this.props.reduxUser(response)
-            }
-        } catch (err) {
-            alert(err)
-        }
 
-    }
 
-    handlemenu_1() {
-        const pm = new PM();
-        const regularFont = pm.getRegularFont.call(this)
-        const navigation = pm.getnavigation.call(this)
+
+    showmenu() {
         const styles = MyStylesheet();
+        const pm = new PM();
         const myuser = pm.getuser.call(this)
-        if (navigation.hasOwnProperty("navigation")) {
-            switch (navigation.navigation) {
-                case 'login':
-                    if (myuser) {
-                        return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlemyprojects() }}> {`myprojects ->`}</Text>)
-                    } else {
-                        return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlelanding() }}> {`<-back`}</Text>)
-                    }
-
-                case 'register':
-                    if (myuser) {
-                        return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlemyprojects() }}> {`myprojects ->`}</Text>)
-                    } else {
-                        return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlelanding() }}> {`<-back`}</Text>)
-                    }
-                case 'profile':
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlemyprojects() }}> {`myprojects ->`}</Text>)
-                case 'landing':
-                    if (myuser) {
-                        return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlemyprojects() }}> {`myprojects ->`}</Text>)
-                    }
-                    break;
-                default:
-                    if (myuser) {
-                        return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlemyprojects() }}> {`myprojects ->`}</Text>)
-                    }
-                    break;
-            }
-        }
-
-    }
-    handlemenu_2() {
-        const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
-        const regularFont = pm.getRegularFont.call(this)
-        const styles = MyStylesheet();
-        if (myproject) {
-            return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleproject(myproject.projectid) }}> {myproject.title}-> </Text>)
-        }
-    }
-    handlemenu_3() {
-        const pm = new PM();
-        const navigation = pm.getnavigation.call(this)
-        const regularFont = pm.getRegularFont.call(this)
-        const styles = MyStylesheet();
-        const myproject = pm.getactiveproject.call(this)
-        if (myproject) {
-            switch (navigation.navigation) {
-                case "team":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleteam(myproject.projectid) }}> team -> </Text>)
-                case "milestones":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlemilestones(myproject.projectid) }}> milestones -> </Text>)
-                case "bidschedule":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlebidschedule(myproject.projectid) }}> bidschedule -> </Text>)
-                case "bidschedulelineitem":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlebidschedule(myproject.projectid) }}> bidschedule -> </Text>)
-                case "bid":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlebid(myproject.projectid) }}> bid -> </Text>)
-                case "bidlineitem":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlebid(myproject.projectid) }}> bid -> </Text>)
-                case "proposals":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleproposals(myproject.projectid) }}> proposals -> </Text>)
-                case "viewproposal":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleproposals(myproject.projectid) }}> proposals -> </Text>)
-                case "proposallineitem":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleproposals(myproject.projectid) }}> proposals -> </Text>)
-                case "invoices":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleinvoices(myproject.projectid) }}> invoices -> </Text>)
-                case "viewinvoice":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleinvoices(myproject.projectid) }}> invoices -> </Text>)
-                case "invoicelineitem":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleinvoices(myproject.projectid) }}> invoices -> </Text>)
-                case "specifications":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlespecifications(myproject.projectid) }}> specifications -> </Text>)
-                case "specification":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlespecifications(myproject.projectid) }}> specifications -> </Text>)
-                case "costestimate":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlecostestimate(myproject.projectid) }}> costestimate -> </Text>)
-                default:
-                    break;
-            }
-        }
-    }
-    handlemenu_4() {
-        const pm = new PM();
-        const navigation = pm.getnavigation.call(this)
-        const regularFont = pm.getRegularFont.call(this)
-        const params = pm.getactiveparams.call(this)
-        const styles = MyStylesheet();
-        const myproject = pm.getactiveproject.call(this)
-        if (myproject) {
-            switch (navigation.navigation) {
-                case "bidlineitem":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlebidlineitem(params.bid.csiid) }}> {params.bid.csiid} </Text>)
-                case "bidschedulelineitem":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlebidschedulelineitem(params.bidschedule.csiid) }}> {params.bidschedule.csiid} </Text>)
-                case "viewproposal":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewproposal(params.proposalid) }}> {params.proposalid} </Text>)
-                case "proposallineitem":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewproposal(params.proposalid) }}> {params.proposalid} </Text>)
-                case "viewinvoice":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewinvoice(params.invoiceid) }}> {params.invoiceid} </Text>)
-                case "invoicelineitem":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handleviewinvoice(params.invoiceid) }}> {params.invoiceid} </Text>)
-                case "specification":
-                    return (<Text style={[regularFont, styles.alignCenter]} onPress={() => { this.handlespecification(params.specifications.csiid) }}> {params.specifications.csiid} </Text>)
-                default:
-                    break
-            }
-        }
-
-    }
-    showHeader() {
-        const pm = new PM();
-        const header = new Header();
-        const styles = MyStylesheet();
-        const regularFont = pm.getRegularFont.call(this)
         const headerFont = pm.getHeaderFont.call(this)
-        const myuser = pm.getuser.call(this)
-        const profileicon = pm.getprofileicon.call(this)
-        const header_3 = () => {
 
-            return (<TouchableOpacity onPress={() => { this.checkuserlogin() }}>
-                <Image source={require('./png/refreshicon.png')}
-                    resizeMethod='scale'
-                    style={styles.refreshicon}
-                />
-            </TouchableOpacity>)
-        }
-        const header_1 = () => {
+        const link_1 = (myuser) => {
             if (myuser) {
-                return (<TouchableOpacity onPress={() => { this.handleprofile() }}>
-                    <Image source={require('./png/profileicon.png')}
+                return (<Text onPress={() => { this.handleprofile() }} className="nav-link" style={{ ...styles.generalFont, ...headerFont, ...styles.generalText, ...styles.fontBold, ...styles.alignCenter }}>  /{myuser.profile} </Text>);
+            } else {
+                return (<Text onPress={() => { this.handlelanding() }} style={{ ...styles.generalFont, ...headerFont, ...styles.generalText, ...styles.fontBold, ...styles.alignCenter  }}> / </Text>);
+            }
+
+        }
+
+        const launchwidth = () => {
+            return ({ width: 65, height:52 })
+        }
+
+        const closeicon = () => {
+            return ({ width: 42, height:30 })
+        }
+
+
+
+
+        const link_2 = (myuser) => {
+            if (myuser) {
+                return (<Text style={{ ...styles.generalFont, ...headerFont, ...styles.generalText, ...styles.fontBold, ...styles.alignCenter  }} onPress={() => { this.handlemyprojects() }}>  /myprojects  </Text>);
+            } else {
+                return (<Text onPress={() => { this.handleregister() }} style={{ ...styles.generalFont, ...headerFont, ...styles.generalText, ...styles.fontBold, ...styles.alignCenter  }}> /register </Text>);
+            }
+
+        }
+
+
+
+        const link_3 = (myuser) => {
+            if (myuser) {
+                return (<Text onPress={() => { pm.logoutuser.call(this) }} style={{ ...styles.generalFont, ...headerFont, ...styles.generalText, ...styles.fontBold, ...styles.alignCenter  }}> /logout </Text>
+                )
+            } else {
+                return (<Text onPress={() => { this.handlelogin() }} style={{ ...styles.generalFont, ...headerFont, ...styles.generalText, ...styles.fontBold, ...styles.alignCenter  }}> /login </Text>)
+            }
+
+        }
+
+        const getbutton = () => {
+            if (this.state.menu === 'closed') {
+                return (<TouchableOpacity onPress={() => { this.setState({ menu: 'open' }) }}>
+                    <Image source={require('./png/launchicon.png')}
                         resizeMethod='scale'
-                        style={profileicon}
+                        style={{ ...launchwidth() }}
                     />
                 </TouchableOpacity>)
-            } else {
-                return (<Text style={[styles.headerText, styles.alignCenter, headerFont]} onPress={() => { this.handleregister() }}>Register</Text>)
+
+            }
+
+        }
+
+        const getcloseIcon = () => {
+            if (this.state.menu === 'open') {
+                return (<TouchableOpacity onPress={() => { this.setState({ menu: 'closed' }) }}>
+                    <Image source={require('./png/closeicon.png')}
+                        resizeMethod='scale'
+                        style={{ ...closeicon() }}
+                    />
+                </TouchableOpacity>)
+
             }
         }
 
-        const header_2 = () => {
-            if (myuser) {
-                return (<Text style={[styles.headerText, styles.alignCenter, headerFont]} onPress={() => { header.logoutuser.call(this) }}>Logout</Text>)
-            } else {
-                return (<Text style={[styles.headerText, styles.alignCenter, headerFont]} onPress={() => { this.handlelogin() }}>Login</Text>)
+        const smalllinks = (myuser) => {
+            if (this.state.menu === 'open') {
+                return (
+                    <View style={{ ...styles.generalContainer }}>
+                        <View style={{ ...styles.generalContainer, ...styles.topHeader, ...styles.bottomMargin15, ...styles.showBorder, ...styles.generalPadding }}>{link_1(myuser)}</View>
+                        <View style={{ ...styles.generalContainer, ...styles.topHeader, ...styles.bottomMargin15, ...styles.showBorder,...styles.generalPadding }}>{link_2(myuser)}</View>
+                        <View style={{ ...styles.generalContainer, ...styles.topHeader, ...styles.bottomMargin15, ...styles.showBorder,...styles.generalPadding }}>{link_3(myuser)}</View>
+                    </View>)
+
             }
         }
 
-        return (
-            <View style={[styles.generalFlex]}>
-                <View style={[styles.flex1]}>
-
-                    <View style={[styles.generalFlex, styles.backgroundHeader]}>
-                        <View style={[styles.flex2, styles.alignContentCenter]}>
-                            {header_3()}
-                        </View>
-                        <View style={[styles.flex1]}>
-                            {header_1()}
-                        </View>
-                        <View style={[styles.flex1]}>
-                            {header_2()}
-                        </View>
-                    </View>
-
-                    <View style={[styles.generalFlex]}>
-                        <View style={[styles.flex1]}>
-                            {header.handlemenu_1.call(this)}
-                        </View>
-                        <View style={[styles.flex1]}>
-                            {header.handlemenu_2.call(this)}
-
-                        </View>
-                        <View style={[styles.flex1]}>
-                            {header.handlemenu_3.call(this)}
-                        </View>
-                        <View style={[styles.flex1]}>
-                            {header.handlemenu_4.call(this)}
-                        </View>
-
-
-                    </View>
-
-
+        if (this.state.width > 600) {
+            return (<View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                <View style={{ ...styles.flex1, ...styles.topHeader, ...styles.showBorder, ...styles.addMargin, ...styles.alignCenter,...styles.generalPadding }}>
+                    {link_1(myuser)}
                 </View>
+                <View style={{ ...styles.flex1, ...styles.topHeader, ...styles.showBorder, ...styles.addMargin, ...styles.alignCenter,...styles.generalPadding }}>
+                    {link_2(myuser)}
+                </View>
+                <View style={{ ...styles.flex1, ...styles.topHeader, ...styles.showBorder, ...styles.addMargin, ...styles.alignCenter,...styles.generalPadding }}>
+                    {link_3(myuser)}
+                </View>
+
+            </View>)
+
+        } else {
+
+            return (<View style={{ ...styles.generalFlex,...styles.bottomMargin15 }}>
+                <View style={{ ...styles.flex1, ...styles.addMargin, ...styles.alignCenter }}>
+                    {getbutton()}
+                </View>
+
+                <View style={{ ...styles.flex5, ...styles.addMargin, ...styles.alignCenter }}>
+                    {smalllinks(myuser)}
+                </View>
+                <View style={{ ...styles.flex1, ...styles.alignCenter }}>
+                    {getcloseIcon()}
+                </View>
+
+
+            </View>)
+
+
+        }
+
+
+    } // end show menu
+
+
+
+    showheader() {
+        const styles = MyStylesheet();
+        const header = new Header();
+        const logowidth = () => {
+            if (this.state.width > 1200) {
+                return ({ width: 232, height:174 })
+
+            } else if (this.state.width > 600) {
+                return ({ width: 226, height:170 })
+
+            } else {
+                return ({ width: 154, height:116 })
+
+            }
+        }
+
+        const alignCenter = () => {
+            if (this.state.width < 600) {
+                return (styles.alignContentCenter)
+            }
+        }
+
+        return (<View style={{ ...styles.generalFlex }}>
+            <View style={{ ...styles.flex1 }}>
+
+                <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
+                    <View style={{ ...styles.flex1 }}>
+                        <View style={{ ...styles.generalContainer, ...alignCenter() }}>
+                        <TouchableOpacity onPress={()=>{this.checkuserlogin()}}>
+                            <Image source={require('./png/pmlogo.png')}
+                                resizeMethod='scale'
+                                style={{ ...logowidth() }}
+                            />
+                        </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+
+                {header.showmenu.call(this)}
+
+
+
+
             </View>
-        )
+        </View>)
     }
 }
-export default Header;
 
+export default Header;
