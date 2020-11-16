@@ -8,10 +8,10 @@ class ProposalLineItem {
     getlaboritems() {
         const proposallineitem = new ProposalLineItem();
         const pm = new PM();
-        const params = pm.getactiveparams.call(this);
+        const params = pm.getnavigation.call(this);
         const schedule = pm.getAllSchedule.call(this)
         const csiid = params.proposal.csiid;
-        const proposalid = params.proposalid;
+        const proposalid = params.proposal.proposalid;
         let laboritems = [];
         let items = [];
         // eslint-disable-next-line
@@ -52,11 +52,11 @@ class ProposalLineItem {
     getequipmentitems() {
 
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
+        const params = pm.getnavigation.call(this)
         const schedule = pm.getAllSchedule.call(this)
         const csiid = params.proposal.csiid;
         const proposallineitem = new ProposalLineItem();
-        const proposalid = params.proposalid;
+        const proposalid = params.proposal.proposalid;
         let equipmentitems = []
         let items = [];
         // eslint-disable-next-line
@@ -93,11 +93,11 @@ class ProposalLineItem {
 
     getmaterialitems() {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
+        const params = pm.getnavigation.call(this)
         const schedule = pm.getAllSchedule.call(this)
         const csiid = params.proposal.csiid;
         const proposallineitem = new ProposalLineItem();
-        const proposalid = params.proposalid;
+        const proposalid = params.proposal.proposalid;
         let laboritems = [];
         let items = [];
         // eslint-disable-next-line
@@ -134,11 +134,11 @@ class ProposalLineItem {
 
     getlabor() {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
+        const params = pm.getnavigation.call(this)
         const schedule = pm.getAllSchedule.call(this)
         const csiid = params.proposal.csiid;
         
-        const proposalid = params.proposalid;
+        const proposalid = params.proposal.proposalid;
         let laboritems = [];
         // eslint-disable-next-line
         schedule.map(item => {
@@ -165,10 +165,10 @@ class ProposalLineItem {
 
     getmaterial() {
         const pm = new PM();
-        const params= pm.getactiveparams.call(this)
+        const params= pm.getnavigation.call(this)
         const schedule = pm.getAllSchedule.call(this)
         const csiid = params.proposal.csiid;
-        const proposalid = params.proposalid
+        const proposalid = params.proposal.proposalid
         let materialitems = [];
         // eslint-disable-next-line
         schedule.map(item => {
@@ -196,10 +196,10 @@ class ProposalLineItem {
 
     getequipment() {
         const pm = new PM();
-            const params = pm.getactiveparams.call(this)
+            const params = pm.getnavigation.call(this)
             const schedule = pm.getAllSchedule.call(this)
             const csiid = params.proposal.csiid;
-            const proposalid = params.proposalid
+            const proposalid = params.proposal.proposalid
         let equipmentitems = [];
         // eslint-disable-next-line
         schedule.map(item => {
@@ -227,9 +227,9 @@ class ProposalLineItem {
     showproposallineitem() {
         const pm = new PM();
         const styles = MyStylesheet();
-        const params = pm.getactiveparams.call(this)
-        const myproject = pm.getactiveproject.call(this)
-        const proposalid = params.proposalid;
+        const params = pm.getnavigation.call(this)
+        const myproject = pm.getproject.call(this)
+        const proposalid = params.proposal.proposalid;
         const csi = pm.getcsibyid.call(this, params.proposal.csiid)
         const proposallineitem = new ProposalLineItem();
         const labortotal = proposallineitem.getlabortotal.call(this)
@@ -244,12 +244,7 @@ class ProposalLineItem {
             <View style={[styles.generalFlex]}>
                 <View style={[styles.flex1]}>
 
-                    <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                        <View style={[styles.flex1]}>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/proposal</Text>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{proposalid}/csi/{csi.csi}-{csi.title}</Text>
-                        </View>
-                    </View>
+                   
 
                     <View style={[styles.generalFlex, styles.bottomMargin10]}>
                         <View style={[styles.flex1, styles.showBorder]}>

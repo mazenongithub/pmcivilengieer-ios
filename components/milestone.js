@@ -69,7 +69,7 @@ class Milestone {
         const makeID = new MakeID();
         let myuser = pm.getuser.call(this);
         if (myuser) {
-            let myproject = pm.getactiveproject.call(this)
+            let myproject = pm.getproject.call(this)
             let i = pm.getprojectkeybyid.call(this, myproject.projectid)
             if (this.state.activemilestoneid) {
                 let j = pm.getmilestonekeybyid.call(this, this.state.activemilestoneid)
@@ -143,7 +143,7 @@ class Milestone {
     }
     confirmremovemilestone(milestone) {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this);
+        const params = pm.getnavigation.call(this);
         const myuser = pm.getuser.call(this)
         if (myuser) {
             const project = pm.getprojectbyid.call(this, params.projectid)
@@ -243,7 +243,7 @@ class Milestone {
 
     showmilestone() {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this);
+        const myproject = pm.getproject.call(this);
         const styles = MyStylesheet();
         const headerFont = pm.getHeaderFont.call(this);
         const regularFont = pm.getRegularFont.call(this);
@@ -258,12 +258,6 @@ class Milestone {
                 <View style={[styles.generalFlex]}>
                     <View style={[styles.flex1]}>
 
-                        <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                            <View style={[styles.flex1]}>
-                                <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/{myproject.title}</Text>
-                                <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/milestones</Text>
-                            </View>
-                        </View>
 
                         <View style={[styles.generalFlex, styles.bottomMargin10]}>
                             <View style={[styles.flex1]}>

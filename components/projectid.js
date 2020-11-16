@@ -5,14 +5,23 @@ import PM from './pm'
 class ProjectID {
     makeprojectactive(projectid) {
         const pm = new PM();
-        const activeproject = pm.getactiveproject.call(this)
-        const activeprojectid = activeproject.projectid;
+        const activeproject = pm.getnavigation.call(this)
+        
+        let activeprojectid = false;
+        if(activeproject.hasOwnProperty("projectid")) {
+             activeprojectid = activeproject.projectid;
+        }
+        
         if(activeprojectid === projectid) {
-            this.props.reduxProject(false)
+          
+            delete activeproject.projectid;
+            this.props.reduxNavigation(activeproject)
            
         } else {
-            this.props.reduxProject({projectid})
+            activeproject.projectid = projectid
+            this.props.reduxNavigation(activeproject)
         }
+
         this.setState({message:""})
     }
 
@@ -24,7 +33,7 @@ class ProjectID {
         const headerFont = pm.getHeaderFont.call(this)
         const projectid = new ProjectID();
         const navigation = pm.getnavigation.call(this);
-        const activeparams  = pm.getactiveparams.call(this)
+        const activeparams  = pm.getnavigation.call(this)
         const activebackground = () => {
             if(activeparams.projectid === myproject.projectid) {
                 return(styles.activebackground)

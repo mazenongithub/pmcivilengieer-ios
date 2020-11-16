@@ -8,10 +8,10 @@ class InvoiceLineItem {
     getlaboritems() {
         const invoicelineitem = new InvoiceLineItem();
         const pm = new PM();
-        const params = pm.getactiveparams.call(this);
+        const params = pm.getnavigation.call(this);
         const actual = pm.getAllActual.call(this)
         const csiid = params.invoice.csiid;
-        const invoiceid = params.invoiceid;
+        const invoiceid = params.invoice.invoiceid;
         let laboritems = [];
         let items = [];
         // eslint-disable-next-line
@@ -52,11 +52,11 @@ class InvoiceLineItem {
     getequipmentitems() {
 
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
+        const params = pm.getnavigation.call(this)
         const actual = pm.getAllActual.call(this)
         const csiid = params.invoice.csiid;
         const invoicelineitem = new InvoiceLineItem();
-        const invoiceid = params.invoiceid;
+        const invoiceid = params.invoice.invoiceid;
         let equipmentitems = []
         let items = [];
         // eslint-disable-next-line
@@ -93,11 +93,11 @@ class InvoiceLineItem {
 
     getmaterialitems() {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
+        const params = pm.getnavigation.call(this)
         const actual = pm.getAllActual.call(this)
         const csiid = params.invoice.csiid;
         const invoicelineitem = new InvoiceLineItem();
-        const invoiceid = params.invoiceid;
+        const invoiceid = params.invoice.invoiceid;
         let laboritems = [];
         let items = [];
         // eslint-disable-next-line
@@ -134,11 +134,11 @@ class InvoiceLineItem {
 
     getlabor() {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
+        const params = pm.getnavigation.call(this)
         const actual = pm.getAllActual.call(this)
         const csiid = params.invoice.csiid;
         
-        const invoiceid = params.invoiceid;
+        const invoiceid = params.invoice.invoiceid;
         let laboritems = [];
         // eslint-disable-next-line
         actual.map(item => {
@@ -165,10 +165,10 @@ class InvoiceLineItem {
 
     getmaterial() {
         const pm = new PM();
-        const params= pm.getactiveparams.call(this)
+        const params= pm.getnavigation.call(this)
         const actual = pm.getAllActual.call(this)
         const csiid = params.invoice.csiid;
-        const invoiceid = params.invoiceid
+        const invoiceid = params.invoice.invoiceid
         let materialitems = [];
         // eslint-disable-next-line
         actual.map(item => {
@@ -196,10 +196,10 @@ class InvoiceLineItem {
 
     getequipment() {
         const pm = new PM();
-            const params = pm.getactiveparams.call(this)
+            const params = pm.getnavigation.call(this)
             const actual = pm.getAllActual.call(this)
             const csiid = params.invoice.csiid;
-            const invoiceid = params.invoiceid
+            const invoiceid = params.invoice.invoiceid
         let equipmentitems = [];
         // eslint-disable-next-line
         actual.map(item => {
@@ -227,9 +227,9 @@ class InvoiceLineItem {
     showinvoicelineitem() {
         const pm = new PM();
         const styles = MyStylesheet();
-        const params = pm.getactiveparams.call(this)
-        const myproject = pm.getactiveproject.call(this)
-        const invoiceid = params.invoiceid;
+        const params = pm.getnavigation.call(this)
+        const myproject = pm.getproject.call(this)
+        const invoiceid = params.invoice.invoiceid;
         const csi = pm.getcsibyid.call(this, params.invoice.csiid)
         const invoicelineitem = new InvoiceLineItem();
         const labortotal = invoicelineitem.getlabortotal.call(this)
@@ -244,12 +244,7 @@ class InvoiceLineItem {
             <View style={[styles.generalFlex]}>
                 <View style={[styles.flex1]}>
 
-                    <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                        <View style={[styles.flex1]}>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/invoice/{invoiceid}</Text>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/csi/{csi.csi}-{csi.title}</Text>
-                        </View>
-                    </View>
+             
 
                     <View style={[styles.generalFlex, styles.bottomMargin10]}>
                         <View style={[styles.flex1, styles.showBorder]}>

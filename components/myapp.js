@@ -137,143 +137,184 @@ class MyApp extends Component {
     this.setState({ message: '' })
   }
   handleproject(projectid) {
-    this.props.reduxProject({ projectid })
-    this.props.reduxNavigation({ navigation: 'project' })
-    this.setState({ message: "" })
-  }
-
-  handlecharges(projectid) {
-    this.props.reduxNavigation({ navigation: 'charges' })
-    this.props.reduxProject({ projectid })
+    const pm = new PM();
+    const navigation = pm.getnavigation.call(this)
+    navigation.projectid = projectid;
+    navigation.navigation = 'project'
+    this.props.reduxNavigation(navigation)
     this.setState({ message: "" })
   }
 
   handleteam(projectid) {
-    this.props.reduxNavigation({ navigation: 'team' })
-    this.props.reduxProject({ projectid })
+    const pm = new PM();
+    const navigation = pm.getnavigation.call(this)
+    navigation.navigation = 'team'
+    navigation.projectid = projectid
+    this.props.reduxNavigation(navigation)
     this.setState({ activeprovider: false, activeengineer: false, search: '', design: '' })
   }
   handlemilestones(projectid) {
-    this.props.reduxNavigation({ navigation: 'milestones' })
-    this.props.reduxProject({ projectid })
+    const pm = new PM();
+    const navigation = pm.getnavigation.call(this)
+    navigation.navigation = 'milestones'
+    navigation.projectid = projectid
+    this.props.reduxNavigation(navigation)
     this.setState({ activemilestoneid: false, milestonefinish: '' })
   }
 
   handleproposals(projectid) {
-    this.props.reduxNavigation({ navigation: 'proposals' })
-    this.props.reduxProject({ projectid })
+    const pm = new PM();
+    const navigation = pm.getnavigation.call(this)
+    navigation.navigation = 'proposals'
+    navigation.projectid = projectid
+    this.props.reduxNavigation(navigation)
     this.setState({ message: "" })
   }
 
   handlebidschedule(projectid) {
-    this.props.reduxNavigation({ navigation: 'bidschedule' })
-    this.props.reduxProject({ projectid })
+    const pm = new PM();
+    const navigation = pm.getnavigation.call(this)
+    navigation.navigation = 'bidschedule'
+    navigation.projectid = projectid
+    this.props.reduxNavigation(navigation)
     this.setState({ message: "" })
   }
 
   handlebid(projectid) {
-    this.props.reduxNavigation({ navigation: 'bid' })
-    this.props.reduxProject({ projectid })
-    this.setState({ message: "" })
-  }
-
-  handleinvoices(projectid) {
-    this.props.reduxNavigation({ navigation: 'invoices' })
-    this.props.reduxProject({ projectid })
-    this.setState({ message: "" })
-  }
-  handleviewproposal(proposalid) {
     const pm = new PM();
-    const params = pm.getactiveparams.call(this);
-    params.proposalid = proposalid;
-    this.props.reduxNavigation({ navigation: 'viewproposal' })
-    this.props.reduxProject(params)
+    const navigation = pm.getnavigation.call(this)
+    navigation.navigation = 'bid'
+    navigation.projectid = projectid
+    this.props.reduxNavigation(navigation)
     this.setState({ message: "" })
-
   }
-  handleviewinvoice(invoiceid) {
+  handlecharges(projectid) {
     const pm = new PM();
-    const params = pm.getactiveparams.call(this);
-    params.invoiceid = invoiceid;
-    this.props.reduxNavigation({ navigation: 'viewinvoice' })
-    this.props.reduxProject(params)
+    const navigation = pm.getnavigation.call(this)
+    navigation.navigation = 'charges'
+    navigation.projectid = projectid
+    this.props.reduxNavigation(navigation)
     this.setState({ message: "" })
-
   }
 
-  handleproposallineitem(csiid) {
-    const pm = new PM();
-    const params = pm.getactiveparams.call(this);
-    params.proposal = { csiid }
-    this.props.reduxNavigation({ navigation: 'proposallineitem' })
-    this.props.reduxProject(params)
-    this.setState({ message: "" })
-
-  }
 
   handlespecification(csiid) {
     const pm = new PM();
-    const params = pm.getactiveparams.call(this);
-    params.specifications = { csiid }
-    this.props.reduxProject(params)
-    this.props.reduxNavigation({ navigation: 'specification' })
+    const navigation = pm.getnavigation.call(this)
+    navigation.navigation = 'specification'
+    navigation.specifications = {};
+    navigation.specifications.csiid = csiid
+    this.props.reduxNavigation(navigation)
     this.setState({ message: "" })
 
   }
 
   handlespecifications(projectid) {
-    this.props.reduxNavigation({ navigation: 'specifications' })
-    this.props.reduxProject({ projectid })
+    const pm = new PM();
+    const navigation = pm.getnavigation.call(this)
+    navigation.navigation = 'specifications'
+    navigation.projectid = projectid
+    this.props.reduxNavigation(navigation)
     this.setState({ message: "" })
 
   }
 
   handlecostestimate(projectid) {
-    this.props.reduxNavigation({ navigation: 'costestimate' })
-    this.props.reduxProject({ projectid })
+    const pm = new PM();
+    const navigation = pm.getnavigation.call(this)
+    navigation.navigation = 'costestimate'
+    navigation.projectid = projectid
+    this.props.reduxNavigation(navigation)
     this.setState({ message: "" })
 
   }
 
   handlecostestimatelineid(csiid) {
     const pm = new PM();
-    const params = pm.getactiveparams.call(this);
-    params.costestimate = { csiid }
-    this.props.reduxNavigation({ navigation: 'estimatelineitem' })
-    this.props.reduxProject(params)
+    const navigation = pm.getnavigation.call(this);
+    navigation.costestimate = { csiid }
+    navigation.navigation = 'estimatelineitem'
+    this.props.reduxNavigation(navigation)
+    this.setState({ message: "" })
+
+  }
+
+
+  handleinvoices(projectid) {
+    const pm = new PM();
+    const navigation = pm.getnavigation.call(this)
+    navigation.navigation = 'invoices'
+    navigation.projectid = projectid
+    this.props.reduxNavigation(navigation)
+    this.setState({ message: "" })
+  }
+  handleviewproposal(proposalid) {
+    const pm = new PM();
+    const navigation = pm.getnavigation.call(this);
+    navigation.proposal = {}
+    navigation.proposal.proposalid = proposalid;
+    navigation.navigation = 'viewproposal'
+    this.props.reduxNavigation(navigation)
+    this.setState({ message: "" })
+
+  }
+  handleviewinvoice(invoiceid) {
+    const pm = new PM();
+    const navigation = pm.getnavigation.call(this);
+    navigation.invoice = {};
+    navigation.invoice.invoiceid = invoiceid;
+    navigation.navigation = 'viewinvoice'
+    this.props.reduxNavigation(navigation)
+    this.setState({ message: "" })
+
+  }
+
+  handleproposallineitem(csiid) {
+    const pm = new PM();
+    const navigation = pm.getnavigation.call(this);
+    if(navigation.hasOwnProperty("proposal")) {
+      navigation.proposal.csiid = csiid 
+    }
+    
+    navigation.navigation = 'proposallineitem'
+    this.props.reduxNavigation(navigation)
     this.setState({ message: "" })
 
   }
 
   handlebidlineitem(csiid) {
     const pm = new PM();
-    const params = pm.getactiveparams.call(this);
-    params.bid = { csiid }
-    this.props.reduxNavigation({ navigation: 'bidlineitem' })
-    this.props.reduxProject(params)
+    const navigation = pm.getnavigation.call(this);
+    navigation.bid = { csiid }
+    navigation.navigation = 'bidlineitem'
+    this.props.reduxNavigation(navigation)
     this.setState({ message: "" })
 
   }
 
   handleinvoicelineitem(csiid) {
     const pm = new PM();
-    const params = pm.getactiveparams.call(this);
-    params.invoice = { csiid }
-    this.props.reduxNavigation({ navigation: 'invoicelineitem' })
-    this.props.reduxProject(params)
+    const navigation = pm.getnavigation.call(this);
+    if(navigation.hasOwnProperty("invoice")) {
+    navigation.invoice.csiid =  csiid 
+    navigation.navigation = 'invoicelineitem'
+    this.props.reduxNavigation(navigation)
+    }
+
     this.setState({ message: "" })
 
   }
 
   handlebidschedulelineitem(csiid) {
     const pm = new PM();
-    const params = pm.getactiveparams.call(this);
-    params.bidschedule = { csiid }
-    this.props.reduxNavigation({ navigation: 'bidschedulelineitem' })
-    this.props.reduxProject(params);
+    const navigation = pm.getnavigation.call(this);
+    navigation.bidschedule = { csiid }
+    navigation.navigation = 'bidschedulelineitem'
+    this.props.reduxNavigation(navigation)
     this.setState({ message: "" })
 
   }
+
 
 
   mainbody() {
@@ -361,8 +402,8 @@ class MyApp extends Component {
       <View style={[styles.generalFlex, styles.topMargin35, styles.leftMargin5]}>
 
         <View style={[styles.flex1]}>
-          {header.showheader.call(this)}
           <ScrollView>
+          {header.showheader.call(this)}
             {this.mainbody()}
             <View style={{ height: Dimensions.get('window').height }}>
 

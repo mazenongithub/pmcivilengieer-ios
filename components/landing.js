@@ -12,115 +12,103 @@ class Landing {
         const myimages = [
             {
                 imageid: 'projectmanagement',
-                uri: require('../slides/logo.png'),
-                capt: 'This is Project Management by civilengineer.io. Free Project Engineering service. This is an App for Project Owners that is hosted at  http://pm.civilengineer.io. See the slideshow to learn more about how you can save with this program ',
-                title:'Project Management Online'
-    
+                uri: require('../slides/myprojects.png'),
+                capt: 'Sign Up and Create your project. Receive services. Save Money Being your Own PM! Get A Higher Quality End Product. Get what authorize and  pay for. ',
+                title: 'Project Management by Civilengineer.io'
+
             },
-    
-        {
-            imageid: 'myprojects',
-            uri: require('../slides/myprojects.png'),
-            capt: 'Project Component was made to quickly and easily create projects. Start by Creating a ProjectID url. Then define the Scope and Location. ',
-            title:'Create Projects'
+            {
+                imageid: 'profile',
+                uri: require('../slides/profile.png'),
+                capt: 'Manage your profile. Upload a Profile Photo. You will see this after you login ',
+                title: 'My Profile'
 
-        },
-        {
-            imageid: 'charges',
-            uri: require('../slides/charges.png'),
-            capt: 'Add balance to your project using the charges component. This allows you to add balance to your project. This will allow you settle your invoices ',
-            title:'Charges'
+            },
+           
 
-        },
-    
-        {
-            imageid: 'milestone',
-            uri: require('../slides/milestone.png'),
-            capt: 'Create project milestones. Start Date, End Date, and name of the milestone.   ',
-            title:'Create Project Milestones'
+            {
+                imageid: 'myprojects',
+                uri: require('../slides/myprojects.png'),
+                capt: 'Create and Manage your project using the PM app. Start by defining its location and its scope of work. ',
+                title: 'Create Projects'
 
-        },
+            },
+            {
+                imageid: 'charges',
+                uri: require('../slides/charges.png'),
+                capt: 'Safely and securely add balance payments to your project. This will allow you to settle your invoices. ',
+                title: 'Charges'
 
-        {
-            imageid: 'criticalpath',
-            uri: require('../slides/criticalpath.png'),
-            capt: 'Create relationships between your milestones. Creates project schedule diagram. Calculates flaot and total project float for each milestone. Determines crtical path. ',
-            title:'Critical Path Analysis'
+            },
 
-        },
+            {
+                imageid: 'milestone',
+                uri: require('../slides/milestone.png'),
+                capt: 'Create Project milestones to communicate your needs and schedule to the service providers. They must enter a milestone when they are entering a cost for your project ',
+                title: 'Create Project Milestones'
 
-        {
-            imageid: 'team_1',
-            uri: require('../slides/team_1.png'),
-            capt: 'Team component was made to build the project team and define individual roles on the team. You can add members to your Design Team and to your Construction Team ',
-            title:'Build a Project Team'
+            },
 
-        },
+            {
+                imageid: 'criticalpath',
+                uri: require('../slides/criticalpath.png'),
+                capt: 'Critical path diagram for your milestones ',
+                title: 'Critical Path Analysis'
 
-        {
-            imageid: 'team_2',
-            uri: require('../slides/team_2.png'),
-            capt: 'Updating team role responsbility. Click on the Icon to make active. When they are active, role will appear and you can update their role on the project  ',
-            title:'Defining Team Roles'
+            },
 
-        },
-        {
-            imageid: 'specification',
-            uri: require('../slides/specification.png'),
-            capt: 'Engineers on the Design Team can create the construction specfications, deliver them to the PM. These specifications are the standards that they set for construction. ',
-            title:'Engineers Specifications'
 
-        },
-        {
-            imageid: 'costestimate',
-            uri: require('../slides/estimate.png'),
-            capt: 'Engineers can also provide the PM a cost estimate and a bid-quantity take-off schedule. The schedule is used for negociating and bidding the job. We negociate the construction contract using the Engineers estimate.  ',
-            title:'Engineer Cost Estimate'
+            {
+                imageid: 'team',
+                uri: require('../slides/team.png'),
+                capt: 'Add members to your project. Add members to your design team. This will give members access to your project inside of Construction and Design. ',
+                title: 'Defining Team Roles'
 
-        },
-        {
-            imageid: 'lineitem',
-            uri: require('../slides/lineitem.png'),
-            capt: 'Equipment, labor, and materials breakdown for each line item in the contract ',
-            title:'Labor, Equipment, Materials'
+            },
+            {
+                imageid: 'specification',
+                uri: require('../slides/specification.png'),
+                capt: 'Engineers specify the job using specifications. These specfication are binding language for the project the service providers must adhere to ',
+                title: 'Engineers Specifications'
 
-        },
-        {
-            imageid: 'proposals',
-            uri: require('../slides/proposals.png'),
-            capt: 'The Proposal will show all of the work items. You can view the labor, materials, equipment breakdown. This produces a unit price for each item in the bid table. This is the bid.  ',
-            title:'Construction Proposals'
+            },
+            {
+                imageid: 'costestimate',
+                uri: require('../slides/estimate.png'),
+                capt: 'Engineers add their own independent cost estimate used to format the bid schedule and for negociations.  ',
+                title: 'Engineer Cost Estimate'
 
-        },
-        {
-            imageid: 'viewproposal',
-            uri: require('../slides/viewproposal.png'),
-            capt: 'The PM is responsible for reviewing and authorizing the Proposal prior to work. This will establish a working budget for you and your Contract. The Contractor is expected to do the same when recording their actuals and creating invoices. ',
-            title:'View Proposal'
+            },
+            {
+                imageid: 'lineitem',
+                uri: require('../slides/lineitem.png'),
+                capt: 'Labor, materials, and equipment breakdown for each line item given in the project ',
+                title: 'Labor, Equipment, Materials'
 
-        },
-        {
-            imageid: 'settlement',
-            uri: require('../slides/settlement.png'),
-            capt: 'Invoices matches proposals except invoices accepts payments. To pay an invoice run a settlement. This will transfer all of the outstanding items in the invoice assuming balance available. ',
-            title:'Invoice Settlement'
+            },
 
-        },
+            {
+                imageid: 'viewproposal',
+                uri: require('../slides/viewproposal.png'),
+                capt: 'View and Authorize Proposals to Create A project schedule and start to build your project ',
+                title: 'View Proposal'
 
-        {
-            imageid: 'settled',
-            uri: require('../slides/settled.png'),
-            capt: 'After successfully running settlement, press refresh to see the transfer summary. The transfers occur 1-sec after the settlement completes. You have to press refresh to see the transfers after you run the settlement. ',
-            title:'Invoice Settled'
+            },
+            {
+                imageid: 'viewinvoice',
+                uri: require('../slides/viewinvoice.png'),
+                capt: 'View Invoice allows you to view and settle invoices. Settlement occurs and creates transfers for the payment when you have balance available. ',
+                title: 'View Proposal'
 
-        },
-      
+            }
 
- 
- 
-     
-       
-       
+
+
+
+
+
+
+
         ];
         return myimages;
     }
@@ -129,20 +117,21 @@ class Landing {
         const pm = new PM();
         const regularFont = pm.getRegularFont.call(this)
         const headerFont = pm.getHeaderFont.call(this)
+        const mainslide = pm.getmainslide.call(this)
         const styles = MyStylesheet()
         const marginLeft = () => {
             return ({ marginLeft: 60 })
         }
         return (
             <View style={[styles.generalFlex, styles.bottomMargin30]}>
-                <View style={[styles.flex1]}>
+                <View style={[styles.flex1, styles.alignContentCenter]}>
                     <Image source={image.uri}
                         resizeMethod='scale'
-                        style={[styles.slideimage, marginLeft()]}
+                        style={[mainslide,styles.bottomMargin10]}
                         key={image.imageid}
                     />
-                    <Text style={[headerFont, styles.alignCenter]}>{image.title}</Text>
-                    <Text style={[regularFont, styles.alignCenter]}>{image.capt}</Text>
+                    <Text style={[headerFont, styles.alignCenter, styles.bottomMargin10]}>{image.title}</Text>
+                    <Text style={[regularFont]}>{image.capt}</Text>
                 </View>
             </View>)
 
@@ -177,7 +166,7 @@ class Landing {
         const landing = new Landing();
         const activeimage = landing.getactiveimage.call(this)
         if (activeimage) {
-            return (landing.showimage.call(this,activeimage))
+            return (landing.showimage.call(this, activeimage))
         }
     }
     showimages() {
@@ -254,34 +243,34 @@ class Landing {
             return ({ justifyContent: 'center' })
         }
         const myuser = pm.getuser.call(this);
-        if(myuser) {
-            return(myprofile.showmyprofile.call(this))
+        if (myuser) {
+            return (myprofile.showmyprofile.call(this))
         } else {
-        return (
-            <View style={[styles.generalFlex]}>
-                <View style={[styles.flex1]}>
+            return (
+                <View style={[styles.generalFlex]}>
+                    <View style={[styles.flex1]}>
 
 
-                    <View style={[styles.generalFlex]}>
-                        <View style={[styles.flex1, justify(), styles.topMargin35]}>
+                        <View style={[styles.generalFlex]}>
+                            <View style={[styles.flex1, justify(), styles.topMargin35]}>
 
-                            {landing.showactiveimage.call(this)}
+                                {landing.showactiveimage.call(this)}
+
+                            </View>
 
                         </View>
 
+
+                        {landing.showiconimages.call(this)}
+
+
+
                     </View>
-
-
-                    {landing.showiconimages.call(this)}
-
-
 
                 </View>
 
-            </View>
 
-
-        )
+            )
         }
     }
 }

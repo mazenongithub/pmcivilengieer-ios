@@ -4,7 +4,7 @@ class EnvironmentalVariables {
         const variables = {
             development: {
                 stripeClient: 'pk_test_4ZCejPXp1eoTTdAlwpZW3a4M',
-                serverAPI: 'http://3.83.134.80:8081'
+                serverAPI: 'http://54.86.87.152:8081'
                },
             production: {
                 stripeClient: 'pk_live_NGJS73N6Hmokpws9S1Qn8Nxs',

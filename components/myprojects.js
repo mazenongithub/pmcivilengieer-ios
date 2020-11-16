@@ -15,7 +15,7 @@ class MyProjects {
 
         if (myuser) {
 
-            let myproject = pm.getactiveproject.call(this);
+            let myproject = pm.getproject.call(this);
             const oldprojectid = myproject.projectid;
             const newprojectid = myproject.title;
             const values = {oldprojectid, newprojectid}
@@ -64,7 +64,7 @@ class MyProjects {
     gettitle() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.title;
@@ -78,7 +78,7 @@ class MyProjects {
         const pm = new PM();
         const makeID = new MakeID();
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -113,7 +113,7 @@ class MyProjects {
                     myuser.projects = { myproject: [newProject] }
                 }
                 this.props.reduxUser(myuser)
-                this.props.reduxProject({ projectid })
+                this.props.reduxNavigation({ projectid })
                 this.setState({ render: 'render' })
 
 
@@ -128,7 +128,7 @@ class MyProjects {
     getscope() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.scope;
@@ -141,7 +141,7 @@ class MyProjects {
         const pm = new PM();
         const makeID = new MakeID();
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -167,7 +167,7 @@ class MyProjects {
                     myuser.projects = { myproject: [newProject] }
                 }
                 this.props.reduxUser(myuser)
-                this.props.reduxProject({ projectid })
+                this.props.reduxNavigation({ projectid })
                 this.setState({ render: 'render' })
 
 
@@ -182,7 +182,7 @@ class MyProjects {
     getaddress() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.address;
@@ -195,7 +195,7 @@ class MyProjects {
         const pm = new PM();
         const makeID = new MakeID();
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -223,7 +223,7 @@ class MyProjects {
                     myuser.projects = { myproject: [newProject] }
                 }
                 this.props.reduxUser(myuser)
-                this.props.reduxProject({ projectid })
+                this.props.reduxNavigation({ projectid })
                 this.setState({ render: 'render' })
 
 
@@ -238,7 +238,7 @@ class MyProjects {
     getcity() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.city;
@@ -251,7 +251,7 @@ class MyProjects {
         const pm = new PM();
         const makeID = new MakeID();
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -279,7 +279,7 @@ class MyProjects {
                     myuser.projects = { myproject: [newProject] }
                 }
                 this.props.reduxUser(myuser)
-                this.props.reduxProject({ projectid })
+                this.props.reduxNavigation({ projectid })
                 this.setState({ render: 'render' })
 
 
@@ -294,7 +294,7 @@ class MyProjects {
     getprojectstate() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.projectstate;
@@ -307,7 +307,7 @@ class MyProjects {
         const pm = new PM();
         const makeID = new MakeID();
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -335,7 +335,7 @@ class MyProjects {
                     myuser.projects = { myproject: [newProject] }
                 }
                 this.props.reduxUser(myuser)
-                this.props.reduxProject({ projectid })
+                this.props.reduxNavigation({ projectid })
                 this.setState({ render: 'render' })
 
 
@@ -361,7 +361,7 @@ class MyProjects {
     getzipcode() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.zipcode;
@@ -374,7 +374,7 @@ class MyProjects {
         const pm = new PM();
         const makeID = new MakeID();
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -402,7 +402,7 @@ class MyProjects {
                     myuser.projects = { myproject: [newProject] }
                 }
                 this.props.reduxUser(myuser)
-                this.props.reduxProject({ projectid })
+                this.props.reduxNavigation({ projectid })
                 this.setState({ render: 'render' })
 
 
@@ -420,7 +420,7 @@ class MyProjects {
         const regularFont = pm.getRegularFont.call(this);
         const gocheck = pm.getgochecksmall.call(this)
         const myprojects = new MyProjects();
-        const myproject = pm.getactiveproject.call(this);
+        const myproject = pm.getproject.call(this);
         const myuser = pm.getuser.call(this)
         const validateproject = () => {
             if (myproject) {
@@ -437,13 +437,6 @@ class MyProjects {
             <View style={[styles.generalFlex]}>
                 <View style={[styles.flex1]}>
 
-                    <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                        <View style={[styles.flex1]}>
-
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>MyProjects</Text>
-
-                        </View>
-                    </View>
 
                     <View style={[styles.generalFlex, styles.bottomMargin10]}>
                         <View style={[styles.flex1]}>

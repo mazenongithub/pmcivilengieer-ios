@@ -23,7 +23,7 @@ class Specifications  {
 
     showspecifications() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this,projectid);
         const specifications = new Specifications();
@@ -46,7 +46,7 @@ class Specifications  {
         const pm = new PM();
         const headerFont = pm.getHeaderFont.call(this)
         const specifications = new Specifications();
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
      
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this,projectid);
@@ -68,12 +68,7 @@ class Specifications  {
             <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                 <View style={{ ...styles.flex1 }}>
                     
-                    <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                        <View style={{ ...styles.flex1, ...styles.alignCenter }}>
-                            <Text style={{  ...headerFont,...styles.generalFont, ...styles.alignCenter, ...styles.boldFont }} >/{myproject.title}</Text> 
-                            <Text style={{  ...headerFont,...styles.generalFont, ...styles.alignCenter, ...styles.boldFont }}>/specifications</Text>
-                        </View>
-                    </View>
+               
 
                     {specifications.showspecifications.call(this)}
                

@@ -12,7 +12,7 @@ class Charges {
 
     async processApplePay() {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this);
+        const params = pm.getnavigation.call(this);
         let total_price = this.state.chargeamount.toString();
         const myuser = pm.getuser.call(this)
         const providerid = myuser.providerid;
@@ -115,7 +115,7 @@ class Charges {
 
         let transferids = [];
 
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this, projectid);
         if (myproject) {
@@ -177,7 +177,7 @@ class Charges {
     }
     getsumofcharges() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this, projectid);
         let amount = 0;
@@ -194,7 +194,7 @@ class Charges {
 
     showchargesummary() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this, projectid);
         const styles = MyStylesheet();
@@ -214,7 +214,7 @@ class Charges {
     }
     showcharges() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this, projectid);
         const charges = new Charges();
@@ -246,7 +246,7 @@ class Charges {
         const charges = new Charges();
         const headerFont = pm.getHeaderFont.call(this)
         const sumofcharges = charges.getsumofcharges.call(this);
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this,projectid);
         if(myproject) {
@@ -276,7 +276,7 @@ class Charges {
         const styles = MyStylesheet();
         const myuser = pm.getuser.call(this);
         const applepayicon = pm.getapplepayicon.call(this)
-        const params = pm.getactiveparams.call(this)
+        const params = pm.getnavigation.call(this)
         const projectid = params.projectid;
         let myproject = pm.getprojectbyid.call(this, projectid);
         const charges = new Charges();
@@ -307,7 +307,7 @@ class Charges {
     getcharges() {
         const styles = MyStylesheet();
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
         const getprojectid = activeparams.projectid;
         const project = pm.getprojectbyid.call(this, getprojectid);
         const headerFont = pm.getHeaderFont.call(this)
@@ -320,13 +320,6 @@ class Charges {
             return (
                 <View style={{ ...styles.generalFont }}>
                     <View style={{ ...styles.flex1 }}>
-
-                        <View style={{ ...styles.generalFlex }}>
-                            <View style={{ ...styles.flex1 }}>
-                                <Text style={{ ...styles.alignCenter, ...headerFont, ...styles.generalFont, ...styles.boldFont }}>/{title}</Text>
-                                <Text style={{ ...styles.alignCenter, ...headerFont, ...styles.generalFont,...styles.boldFont }}>/charges</Text>
-                            </View>
-                        </View>
 
                         <View style={{ ...styles.generalContainer, ...styles.bottomMargin15 }}>
                             <Text style={{ ...styles.generalFont, ...regularFont, ...styles.addRightMargin }}>Payment Amount</Text><TextInput

@@ -8,8 +8,8 @@ import { SettleInvoice } from './actions/api'
 class ViewInvoice {
     getinvoice() {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
-        const invoiceid = params.invoiceid;
+        const params = pm.getnavigation.call(this)
+        const invoiceid = params.invoice.invoiceid
         let myinvoice = pm.getinvoicebyid.call(this, invoiceid)
 
         return myinvoice;
@@ -59,9 +59,9 @@ class ViewInvoice {
 
     getamountowed() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
         const projectid = activeparams.projectid;
-        const invoiceid = activeparams.invoiceid;
+        const invoiceid = activeparams.invoice.invoiceid
         const invoiceitems =  pm.getinvoiceitemsbyid.call(this,projectid,invoiceid);
         let owed = 0;
         if (invoiceitems) {
@@ -138,8 +138,8 @@ class ViewInvoice {
    
     getitems() {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
-        const invoiceid = params.invoiceid;
+        const params = pm.getnavigation.call(this)
+        const invoiceid = params.invoice.invoiceid
         let payitems = pm.getAllActual.call(this)
         let items = [];
         const validateNewItem = (items, item) => {
@@ -203,9 +203,9 @@ class ViewInvoice {
     }
     getdirectcost(csiid) {
         const pm = new PM()
-        const params = pm.getactiveparams.call(this);
-        const invoiceid = params.invoiceid;
-        const myproject = pm.getactiveproject.call(this)
+        const params = pm.getnavigation.call(this);
+        const invoiceid = params.invoice.invoiceid
+        const myproject = pm.getproject.call(this)
         let directcost = 0;
         if (myproject) {
             if (myproject.hasOwnProperty("actuallabor")) {
@@ -246,9 +246,9 @@ class ViewInvoice {
     }
     invoiceitemsbycsiid(csiid) {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this);
-        const myproject = pm.getactiveproject.call(this)
-        const invoiceid = params.invoiceid;
+        const params = pm.getnavigation.call(this);
+        const myproject = pm.getproject.call(this)
+        const invoiceid = params.invoice.invoiceid
         let items = [];
         if (myproject.hasOwnProperty("actuallabor")) {
             // eslint-disable-next-line
@@ -391,8 +391,8 @@ class ViewInvoice {
 
     getapproved() {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
-        const invoice = pm.getinvoicebyid.call(this, params.invoiceid)
+        const params = pm.getnavigation.call(this)
+        const invoice = pm.getinvoicebyid.call(this, params.invoice.invoiceid)
         let approved = "";
         if (invoice) {
 
@@ -428,14 +428,14 @@ class ViewInvoice {
        
     
             if(validate.validate) {
-            const activeparams = pm.getactiveparams.call(this);
+            const activeparams = pm.getnavigation.call(this);
             const projectid = activeparams.projectid;
             const myproject = pm.getprojectbyid.call(this, projectid);
             if (myproject) {
     
                 const projectid = myproject.projectid;
                 const i = pm.getprojectkeybyid.call(this, projectid);
-                const invoiceid = activeparams.invoiceid;
+                const invoiceid = activeparams.invoice.invoiceid
                 const amount = Number(Math.round(viewinvoice.getamountowed.call(this)*100))
                 const values = { invoiceid, amount }
                 try{
@@ -529,7 +529,7 @@ class ViewInvoice {
         const quantity = viewinvoice.getquantity.call(this, item.csiid);
         const unit = viewinvoice.getunit.call(this, item.csiid)
         const unitprice = Number(viewinvoice.getunitprice.call(this, item.csiid)).toFixed(2);
-        const activeproject = pm.getactiveproject.call(this);
+        const activeproject = pm.getproject.call(this);
         const regularFont = pm.getRegularFont.call(this)
 
 
@@ -601,8 +601,8 @@ class ViewInvoice {
 
     showcharges() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this)
-        const invoiceid = activeparams.invoiceid;
+        const activeparams = pm.getnavigation.call(this)
+        const invoiceid = activeparams.invoice.invoiceid
         const charges = pm.getchargesbyinvoiceid.call(this, invoiceid)
         const styles = MyStylesheet();
         const headerFont = pm.getHeaderFont.call(this);
@@ -643,7 +643,7 @@ class ViewInvoice {
 
     validateInvoicePayment() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         const viewinvoice = new ViewInvoice();
         const chargetotal = viewinvoice.getchargestotal.call(this);
@@ -677,7 +677,7 @@ class ViewInvoice {
 
     getchargestotal() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
         const projectid = activeparams.projectid;
         const project = pm.getprojectbyid.call(this,projectid);
         let total = 0;
@@ -702,9 +702,9 @@ class ViewInvoice {
 
     getamountowed() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
         const projectid = activeparams.projectid;
-        const invoiceid = activeparams.invoiceid;
+        const invoiceid = activeparams.invoice.invoiceid
         const invoiceitems =  pm.getinvoiceitemsbyid.call(this,projectid,invoiceid);
         let owed = 0;
         if (invoiceitems) {
@@ -787,8 +787,8 @@ class ViewInvoice {
         const viewinvoice = new ViewInvoice();
         const biditems = viewinvoice.getitems.call(this);
         let amount = 0;
-        const params = pm.getactiveparams.call(this)
-        const invoiceid = params.invoiceid;
+        const params = pm.getnavigation.call(this)
+        const invoiceid = params.invoice.invoiceid
         const projectid = params.projectid;
         const myproject = pm.getprojectbyid.call(this,projectid);
         if(myproject) {
@@ -834,8 +834,8 @@ class ViewInvoice {
         const styles = MyStylesheet();
         const headerFont = pm.getHeaderFont.call(this)
         const regularFont = pm.getRegularFont.call(this)
-        const activeparams = pm.getactiveparams.call(this)
-        const invoiceid = activeparams.invoiceid;
+        const activeparams = pm.getnavigation.call(this)
+        const invoiceid = activeparams.invoice.invoiceid
         if (biditems.length > 0) {
             // eslint-disable-next-line
             biditems.map(item => {
@@ -902,7 +902,7 @@ class ViewInvoice {
        
         const headerFont = pm.getHeaderFont.call(this)
         const regularFont = pm.getRegularFont.call(this)
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this,projectid);
         if(myproject) {
@@ -972,12 +972,12 @@ class ViewInvoice {
     settlementSummary() {
         const pm = new PM()
         const styles = MyStylesheet();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this,projectid);
         const viewinvoice = new ViewInvoice();
         if(myproject) {
-            const invoiceid = activeparams.invoiceid;
+            const invoiceid = activeparams.invoice.invoiceid
         const settlements = pm.getsettlementsbyinvoiceid.call(this,invoiceid)
         const headerFont = pm.getHeaderFont.call(this)
         const regularFont = pm.getRegularFont.call(this)
@@ -1048,9 +1048,9 @@ class ViewInvoice {
 
     showinvoice() {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
-        const myproject = pm.getactiveproject.call(this)
-        const invoiceid = params.invoiceid;
+        const params = pm.getnavigation.call(this)
+        const myproject = pm.getproject.call(this)
+        const invoiceid = params.invoice.invoiceid
         const styles = MyStylesheet();
         const viewinvoice = new ViewInvoice();
         const myuser = pm.getuser.call(this);
@@ -1088,26 +1088,13 @@ class ViewInvoice {
             return (
                 <View style={[styles.generalFlex]}>
                     <View style={[styles.flex1]}>
-
-                        <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                            <View style={[styles.flex1]}>
-                                <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}</Text>
-                                <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/invoice/{invoiceid}</Text>
-                            </View>
-                        </View>
                         {viewinvoice.showbidtable.call(this)}
-
-                       
-
-
                         {updated()}
                         {viewinvoice.showsummary.call(this)}
                         {viewinvoice.transferSummary.call(this)}
                         {viewinvoice.settlementSummary.call(this)}
                         {viewinvoice.balanceSummary.call(this)}
-                        {settlement()}
-                   
-                       
+                        {settlement()}        
                     </View>
                 </View>
             )

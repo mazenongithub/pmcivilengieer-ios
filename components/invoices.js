@@ -61,20 +61,14 @@ showinvoices() {
     const pm = new PM();
     const styles = MyStylesheet();
     const headerFont = pm.getHeaderFont.call(this);
-    const myproject = pm.getactiveproject.call(this);
+    const myproject = pm.getproject.call(this);
     const invoices = new Invoices();
     const myuser = pm.getuser.call(this);
     if(myuser) {
     return( <View style={[styles.generalFlex]}>
         <View style={[styles.flex1]}>
 
-            <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                <View style={[styles.flex1]}>
-                    <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/{myproject.title}</Text>
-                    <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/invoices/ </Text>
-                </View>
-            </View>
-
+         
             {invoices.showmyinvoices.call(this)}
             
         </View>

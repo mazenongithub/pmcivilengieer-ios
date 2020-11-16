@@ -8,7 +8,7 @@ class BidScheduleLineItem {
     getlaboritems() {
         const bidschedulelineitem = new BidScheduleLineItem();
         const pm = new PM();
-        const params = pm.getactiveparams.call(this);
+        const params = pm.getnavigation.call(this);
         const schedule = pm.getAllSchedule.call(this)
         const csiid = params.bidschedule.csiid;
         let laboritems = [];
@@ -51,7 +51,7 @@ class BidScheduleLineItem {
     getequipmentitems() {
 
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
+        const params = pm.getnavigation.call(this)
         const schedule = pm.getAllSchedule.call(this)
         const csiid = params.bidschedule.csiid;
         const bidschedulelineitem = new BidScheduleLineItem();
@@ -91,7 +91,7 @@ class BidScheduleLineItem {
 
     getmaterialitems() {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
+        const params = pm.getnavigation.call(this)
         const schedule = pm.getAllSchedule.call(this)
         const csiid = params.bidschedule.csiid;
         const bidschedulelineitem = new BidScheduleLineItem();
@@ -131,7 +131,7 @@ class BidScheduleLineItem {
 
     getlabor() {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this)
+        const params = pm.getnavigation.call(this)
         const schedule = pm.getAllSchedule.call(this)
         const csiid = params.bidschedule.csiid;
         
@@ -162,7 +162,7 @@ class BidScheduleLineItem {
 
     getmaterial() {
         const pm = new PM();
-        const params= pm.getactiveparams.call(this)
+        const params= pm.getnavigation.call(this)
         const schedule = pm.getAllSchedule.call(this)
         const csiid = params.bidschedule.csiid;
         const proposalid = params.proposalid
@@ -193,7 +193,7 @@ class BidScheduleLineItem {
 
     getequipment() {
         const pm = new PM();
-            const params = pm.getactiveparams.call(this)
+            const params = pm.getnavigation.call(this)
             const schedule = pm.getAllSchedule.call(this)
             const csiid = params.bidschedule.csiid;
            
@@ -224,8 +224,8 @@ class BidScheduleLineItem {
     showbidschedulelineitem() {
         const pm = new PM();
         const styles = MyStylesheet();
-        const params = pm.getactiveparams.call(this)
-        const myproject = pm.getactiveproject.call(this)
+        const params = pm.getnavigation.call(this)
+        const myproject = pm.getproject.call(this)
         const csi = pm.getcsibyid.call(this,params.bidschedule.csiid)
         console.log("csi", csi)
         const bidschedulelineitem = new BidScheduleLineItem();
@@ -241,12 +241,7 @@ class BidScheduleLineItem {
             <View style={[styles.generalFlex]}>
                 <View style={[styles.flex1]}>
 
-                    <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                        <View style={[styles.flex1]}>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/bidschedule</Text>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/csi/{csi.csi}-{csi.title}</Text>
-                        </View>
-                    </View>
+               
 
                     <View style={[styles.generalFlex, styles.bottomMargin10]}>
                         <View style={[styles.flex1, styles.showBorder]}>

@@ -12,7 +12,7 @@ class Project {
     gettitle() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.title;
@@ -26,7 +26,7 @@ class Project {
         const pm = new PM();
 
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -57,7 +57,7 @@ class Project {
     getscope() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.scope;
@@ -70,7 +70,7 @@ class Project {
         const pm = new PM();
 
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -90,7 +90,7 @@ class Project {
     getaddress() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.address;
@@ -103,7 +103,7 @@ class Project {
         const pm = new PM();
 
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -126,7 +126,7 @@ class Project {
     getcity() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.city;
@@ -139,7 +139,7 @@ class Project {
         const pm = new PM();
 
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -159,7 +159,7 @@ class Project {
     getprojectstate() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.projectstate;
@@ -172,7 +172,7 @@ class Project {
         const pm = new PM();
 
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -205,7 +205,7 @@ class Project {
     getzipcode() {
         const pm = new PM();
 
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             return myproject.zipcode;
@@ -218,7 +218,7 @@ class Project {
         const pm = new PM();
 
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
 
             if (myproject) {
@@ -263,7 +263,7 @@ class Project {
         const pm = new PM();
         const regularFont = pm.getRegularFont.call(this)
         const headerFont = pm.getHeaderFont.call(this)
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         const myprojects = new MyProjects();
         const projectid = new ProjectID();
         const project = new Project();
@@ -273,13 +273,6 @@ class Project {
         return (
             <View style={[styles.generalFlex]}>
                 <View style={[styles.flex1]}>
-
-                    <View style={[styles.generalFlex]}>
-                        <View style={[styles.flex1]}>
-                            <Text style={[styles.alignCenter, headerFont, styles.boldFont]}> /projects</Text>
-                            <Text style={[styles.alignCenter, headerFont, styles.boldFont]}> /{myproject.title}</Text>
-                        </View>
-                    </View>
 
 
 

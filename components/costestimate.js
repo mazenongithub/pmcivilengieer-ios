@@ -11,7 +11,7 @@ class CostEstimate {
 
     getprofit(csiid) {
         const pm = new PM()
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         const project = pm.getprojectbyid.call(this, projectid)
         let directcost = 0;
@@ -77,7 +77,7 @@ class CostEstimate {
 
     getdirectcost(csiid) {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         let project = pm.getprojectbyid.call(this, projectid);
         let directcost = 0;
@@ -137,7 +137,7 @@ class CostEstimate {
         }
         let csis = [];
         if (myuser) {
-            const activeparams = pm.getactiveparams.call(this)
+            const activeparams = pm.getnavigation.call(this)
             const projectid = activeparams.projectid;
             const project = pm.getprojectbyid.call(this, projectid);
      
@@ -207,7 +207,7 @@ class CostEstimate {
         if(!csi) {
             pm.loadcsis.call(this)
         }
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         const project = pm.getprojectbyid.call(this, projectid);
         const directcost = Number(costestimate.getdirectcost.call(this,biditem.csiid)).toFixed(2)
@@ -307,7 +307,7 @@ class CostEstimate {
         const costestimate = new CostEstimate();
         const styles = MyStylesheet();
         const headerFont = pm.getHeaderFont.call(this)
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         const showprojectid = new ProjectID();
   
@@ -317,13 +317,7 @@ class CostEstimate {
             <View style={{ ...styles.generalFont }}>
                 <View style={{ ...styles.flex1 }}>
 
-                    <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                        <View style={{ ...styles.flex1}}>
-                         
-                           <Text style={{...headerFont, ...styles.boldFont, ...styles.alignCenter }}> /{myproject.title} </Text> 
-                           <Text style={{...headerFont, ...styles.boldFont, ...styles.alignCenter }}> /costestimate </Text> 
-                        </View>
-                    </View>
+                   
 
 
                     {costestimate.showbiditems.call(this)}

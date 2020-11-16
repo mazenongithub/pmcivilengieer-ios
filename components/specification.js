@@ -11,7 +11,7 @@ class Specification {
 
     showspecification() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
      
         let csiid =  false;
         if(activeparams.hasOwnProperty("specifications")) {
@@ -225,7 +225,7 @@ class Specification {
         const pm = new PM();
         const regularFont = pm.getRegularFont.call(this);
         const headerFont = pm.getHeaderFont.call(this)
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const csiid = activeparams.specifications.csiid;
         const projectid = activeparams.projectid;
         const csi = pm.getcsibyid.call(this, csiid)
@@ -236,14 +236,7 @@ class Specification {
             return (<View style={{ ...styles.generalFlex }}>
                 <View style={{ ...styles.flex1 }}>
 
-                    <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
-                        <View style={{ ...styles.flex1 }}>
-                            <Text style={{...headerFont, ...styles.alignCenter,...styles.boldFont}}>/{myproject.title} </Text>
-                            <Text style={{...headerFont, ...styles.alignCenter,...styles.boldFont}} > Specifications</Text>
-                            <Text style={{...headerFont, ...styles.alignCenter,...styles.boldFont}}> CSI {csiid}-{csi.title}</Text>
-
-                        </View>
-                    </View>
+                
 
                     <View style={{ ...styles.generalFlex, ...styles.bottomMargin15 }}>
                         <View style={{ ...styles.flex1 }}>

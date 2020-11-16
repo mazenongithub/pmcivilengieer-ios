@@ -12,7 +12,7 @@ class LineItem {
     getlaboritems() {
         const pm = new PM();
         const lineitem = new LineItem();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const csiid = activeparams.costestimate.csiid;
         const labor = lineitem.getlabor.call(this);
        
@@ -33,7 +33,7 @@ class LineItem {
     }
     getlabor() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         const estimate = pm.getcostestimate.call(this, projectid)
 
@@ -66,7 +66,7 @@ class LineItem {
         const pm = new PM();
         const lineitem = new LineItem();
         const materials = lineitem.getmaterial.call(this);
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const csiid = activeparams.costestimate.csiid;
         let items = [];
         if (materials) {
@@ -84,7 +84,7 @@ class LineItem {
     getmaterial() {
         const pm = new PM();
         let materialitems = [];
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         const estimate = pm.getcostestimate.call(this, projectid)
         if (estimate.hasOwnProperty("materials")) {
@@ -98,7 +98,7 @@ class LineItem {
     getmaterialtotal() {
         const pm = new PM();
         const lineitem = new LineItem();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const csiid = activeparams.costestimate.csiid;
         let items = lineitem.getmaterial.call(this);
         let cost = 0;
@@ -112,7 +112,7 @@ class LineItem {
     }
     getequipment() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const csiid = activeparams.costestimate.csiid;
         const projectid = activeparams.projectid;
         const estimate = pm.getcostestimate.call(this,projectid)
@@ -138,7 +138,7 @@ class LineItem {
     getequipmentitems() {
         const lineitem = new LineItem();
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const csiid = activeparams.costestimate.csiid;
         const projectid = activeparams.projectid;
         const estimate = pm.getcostestimate.call(this,projectid)
@@ -293,7 +293,7 @@ class LineItem {
         const pm = new PM();
         const styles = MyStylesheet();
         const headerFont = pm.getHeaderFont.call(this)
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
         const csiid = activeparams.costestimate.csiid;
         const lineitem = new LineItem();
         const csi = pm.getcsibyid.call(this, csiid);
@@ -304,11 +304,7 @@ class LineItem {
             <View style={{ ...styles.generalFlex }}>
                 <View style={{ ...styles.flex1 }}>
 
-                <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                        <View style={[styles.flex1]}>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}/costestimate/csi/{csi.csi}-{csi.title}</Text>
-                        </View>
-                    </View>
+          
 
                     {lineitem.showlinedetail.call(this)}
                     {projectid.showprojectid.call(this,myproject)}

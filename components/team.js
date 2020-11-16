@@ -13,7 +13,7 @@ class Team {
         const pm = new PM();
         const myuser = pm.getuser.call(this);
         if (myuser) {
-            const activeparams = pm.getactiveparams.call(this);
+            const activeparams = pm.getnavigation.call(this);
             const projectid = activeparams.projectid;
             const project = pm.getprojectbyid.call(this, projectid)
             if (project) {
@@ -36,7 +36,7 @@ class Team {
 
     getengineeringrole() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this, projectid)
         if (myproject) {
@@ -149,7 +149,7 @@ class Team {
 
     showdesignteamids() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this);
+        const activeparams = pm.getnavigation.call(this);
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this, projectid);
         const team = new Team();
@@ -172,7 +172,7 @@ class Team {
     validateengineer(providerid) {
 
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         const myteam = pm.getengineering.call(this, myproject.projectid);
         let validate = true;
         if (myteam) {
@@ -205,7 +205,7 @@ class Team {
         const pm = new PM();
         const myuser = pm.getuser.call(this)
         const team = new Team();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
             let validate = team.validateprovider.call(this, providerid);
             if (validate) {
@@ -402,7 +402,7 @@ class Team {
     handlerole(role) {
         const pm = new PM();
         const myuser = pm.getuser.call(this);
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         if (myuser) {
             if (myproject) {
                 const i = pm.getprojectkeybyid.call(this, myproject.projectid)
@@ -422,7 +422,7 @@ class Team {
 
     confirmremoveteam(myprovider) {
         const pm = new PM();
-        const params = pm.getactiveparams.call(this);
+        const params = pm.getnavigation.call(this);
         const myuser = pm.getuser.call(this)
         if (myuser) {
             const i = pm.getprojectkeybyid.call(this, params.projectid)
@@ -440,7 +440,7 @@ class Team {
         const myuser = pm.getuser.call(this)
         if (myuser) {
             const providerid = engineer.providerid;
-            const activeparams = pm.getactiveparams.call(this);
+            const activeparams = pm.getnavigation.call(this);
             const projectid = activeparams.projectid;
             const project = pm.getprojectbyid.call(this, projectid)
             if (project) {
@@ -579,7 +579,7 @@ class Team {
         const validate = team.validateengineer.call(this, providerid)
         if (validate) {
             if (myuser) {
-                const activeparams = pm.getactiveparams.call(this)
+                const activeparams = pm.getnavigation.call(this)
                 const projectid = activeparams.projectid;
                 const myproject = pm.getprojectbyid.call(this, projectid);
                 if (myproject) {
@@ -609,7 +609,7 @@ class Team {
 
     showteamids() {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         let myproviders = [];
         const team = new Team();
         const myteam = pm.getprojectteam.call(this, myproject.projectid)
@@ -626,7 +626,7 @@ class Team {
 
     projectteamtitle() {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         const projectid = activeparams.projectid;
         const myproject = pm.getprojectbyid.call(this, projectid);
         const styles = MyStylesheet();
@@ -693,7 +693,7 @@ class Team {
 
     showteam() {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         const styles = MyStylesheet();
         const headerFont = pm.getHeaderFont.call(this);
         const regularFont = pm.getRegularFont.call(this);
@@ -713,12 +713,7 @@ class Team {
                 <View style={[styles.generalFlex]}>
                     <View style={[styles.flex1]}>
 
-                        <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                            <View style={[styles.flex1]}>
-                                <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/{myproject.title}</Text>
-                                <Text style={[styles.boldFont, styles.alignCenter, headerFont]}>/team</Text>
-                            </View>
-                        </View>
+                    
 
                         <View style={{ ...styles.generalFlex, ...styles.bottomMargin10 }}>
                             <View style={{ ...styles.flex1 }}>

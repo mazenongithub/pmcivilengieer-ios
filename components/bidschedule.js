@@ -109,7 +109,7 @@ class BidSchedule {
     }
     getdirectcost(csiid) {
         const pm = new PM()
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         let directcost = 0;
         if (myproject) {
             if (myproject.hasOwnProperty("schedulelabor")) {
@@ -150,7 +150,7 @@ class BidSchedule {
     }
     proposalitemsbycsiid(csiid) {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         let items = [];
         if (myproject.hasOwnProperty("schedulelabor")) {
             // eslint-disable-next-line
@@ -212,7 +212,7 @@ class BidSchedule {
 
     handleunit(csiid, unit) {
         const pm = new PM();
-        const activeproject = pm.getactiveparams.call(this)
+        const activeproject = pm.getnavigation.call(this)
     
         const myuser = pm.getuser.call(this)
         if (myuser) {
@@ -254,7 +254,7 @@ class BidSchedule {
 
     handlequantity(csiid, quantity) {
         const pm = new PM();
-        const activeproject = pm.getactiveparams.call(this)
+        const activeproject = pm.getnavigation.call(this)
         if(isNumeric(quantity)) {
         const myuser = pm.getuser.call(this)
         if (myuser) {
@@ -313,7 +313,7 @@ class BidSchedule {
     getunit(csiid) {
         let unit = ""
         const pm = new PM();
-        const activeproject = pm.getactiveparams.call(this)
+        const activeproject = pm.getnavigation.call(this)
     
         if(activeproject) {
       
@@ -330,12 +330,13 @@ class BidSchedule {
 
       getquantity(csiid) {
         const pm = new PM();
-        const activeproject = pm.getactiveparams.call(this)
+        const activeproject = pm.getnavigation.call(this)
         let quantity = "";
         if(activeproject) {
       
         const pm = new PM();
         const item = pm.getbidschedulebyid.call(this, activeproject.projectid, csiid);
+       
         if (item) {
             quantity = item.quantity;
         }
@@ -362,7 +363,7 @@ class BidSchedule {
     showbiditem(item) {
         const styles = MyStylesheet();
         const pm = new PM();
-        const params = pm.getactiveparams.call(this);
+        const params = pm.getnavigation.call(this);
         const csi = pm.getcsibyid.call(this, item.csiid);
         if(!csi) {
             pm.loadcsis.call(this)
@@ -374,7 +375,7 @@ class BidSchedule {
         const unit = bidschedule.getunit.call(this,item.csiid)
         const unitprice = Number(bidschedule.getunitprice.call(this,item.csiid)).toFixed(2);
         const regularFont = pm.getRegularFont.call(this)
-        
+        console.log(bidschedule.getquantity.call(this,item.csiid))
      
 
             return (
@@ -387,14 +388,14 @@ class BidSchedule {
                             </View>
                             <View style={[styles.flex1, styles.showBorder]}>
                                 <Text style={[regularFont, styles.alignCenter]}>Quantity</Text>
-                                <TextInput value={bidschedule.getquantity.call(this,item.csiid)} 
+                                <TextInput value={bidschedule.getquantity.call(this,item.csiid).toString()} 
                                 onChangeText={text=>{bidschedule.handlequantity.call(this,item.csiid, text)}}
                                 style={[ styles.defaultInput, regularFont, styles.alignCenter]}/>
                             </View>
                             <View style={[styles.flex1, styles.showBorder]}>
 
                                 <Text style={[regularFont, styles.alignCenter]}>Unit</Text>
-                                <TextInput value={bidschedule.getunit.call(this,item.csiid)}
+                                <TextInput value={bidschedule.getunit.call(this,item.csiid).toString()}
                                 onChangeText={text=>{bidschedule.handleunit.call(this,item.csiid,text)}} 
                                 style={[styles.alignCenter, regularFont, styles.defaultInput]}/>
                             </View>
@@ -428,7 +429,7 @@ class BidSchedule {
     }
     showbidschedule() {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this);
+        const myproject = pm.getproject.call(this);
         const styles = MyStylesheet();
         const bidschedule = new BidSchedule();
         const myuser = pm.getuser.call(this);
@@ -438,12 +439,6 @@ class BidSchedule {
             <View style={[styles.generalFlex]}>
                 <View style={[styles.flex1]}>
 
-                    <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                        <View style={[styles.flex1]}>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}</Text>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/bidschedule</Text>
-                        </View>
-                    </View>
                     {bidschedule.showbidtable.call(this)}
                 </View>
             </View>

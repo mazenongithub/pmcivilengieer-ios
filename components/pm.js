@@ -9,13 +9,32 @@ import { PaymentsStripe as Stripe } from 'expo-payments-stripe';
 
 class PM {
 
+    getmainslide() {
+        if (this.state.width > 1200) {
+            return ({ width: 1087, height:2352 })
+        } else if (this.state.width > 800) {
+            return ({ width: 762, height:1649 })
+        } else {
+            return ({ width: 356, height:773 })
+        }
+    }
+
+    getproject() {
+        const pm = new PM();
+        const menu = pm.getnavigation.call(this)
+        let project = false
+        if(menu.hasOwnProperty("projectid")) {
+            project = pm.getprojectbyid.call(this,menu.projectid)
+        }
+        return project;
+
+    }
+    
+
     async loadprojectspecs(projectid) {
         
         const pm = new PM();
         const myuser = pm.getuser.call(this)
-    
-     
-      
 
         if (myuser) {
 
@@ -375,8 +394,8 @@ class PM {
     getmilestones() {
 
         const pm = new PM();
-        const projectid = pm.getactiveprojectid.call(this)
-        const myproject = pm.getprojectbyid.call(this,projectid);
+       
+        const myproject = pm.getproject.call(this);
         let milestones = false;
         if (myproject) {
             if (myproject.hasOwnProperty("projectmilestones")) {
@@ -1144,7 +1163,7 @@ class PM {
 
     getprojectteam() {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         let myteam = false;
         if (myproject.hasOwnProperty("projectteam")) {
             myteam = myproject.projectteam.myteam;
@@ -1213,7 +1232,7 @@ class PM {
     getteambyid(providerid) {
         const pm = new PM();
         let provider = false;
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject.hasOwnProperty("projectteam")) {
             // eslint-disable-next-line
@@ -1230,7 +1249,7 @@ class PM {
     getteamkeybyid(providerid) {
         const pm = new PM();
         let key = false;
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject.hasOwnProperty("projectteam")) {
             // eslint-disable-next-line
@@ -1246,7 +1265,7 @@ class PM {
     }
     getprojectteam() {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         let team = false;
         if (myproject.hasOwnProperty("projectteam")) {
             team = myproject.projectteam.myteam;
@@ -1315,7 +1334,7 @@ class PM {
     getinvoicekeybyid(invoiceid) {
         const pm = new PM();
         let key = false;
-        let myproject = pm.getactiveproject.call(this)
+        let myproject = pm.getproject.call(this)
 
         if (myproject.hasOwnProperty("invoices")) {
             myproject.invoices.myinvoice.map((myinvoice, i) => {
@@ -1330,7 +1349,7 @@ class PM {
     getinvoicebyid(invoiceid) {
         const pm = new PM();
         let invoices = false;
-        let myproject = pm.getactiveproject.call(this)
+        let myproject = pm.getproject.call(this)
 
         if (myproject.hasOwnProperty("invoices")) {
             myproject.invoices.myinvoice.map(myinvoice => {
@@ -1398,7 +1417,7 @@ class PM {
 
     getprojectmilestones() {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         let milestones = false;
         if (myproject.hasOwnProperty("projectmilestones")) {
             milestones = myproject.projectmilestones.mymilestone;
@@ -1459,7 +1478,7 @@ class PM {
 
     getmilestonebyid(milestoneid) {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         let mymilestone = false;
         if (myproject.hasOwnProperty("projectmilestones")) {
             myproject.projectmilestones.mymilestone.map(milestone => {
@@ -1473,7 +1492,7 @@ class PM {
 
     getmilestonekeybyid(milestoneid) {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         let key = false;
         if (myproject.hasOwnProperty("projectmilestones")) {
             myproject.projectmilestones.mymilestone.map((milestone, i) => {
@@ -1488,7 +1507,7 @@ class PM {
     getproposals() {
         const pm = new PM();
         let proposals = false;
-        const myproject = pm.getactiveproject.call(this);
+        const myproject = pm.getproject.call(this);
         if (myproject.hasOwnProperty("proposals")) {
             proposals = myproject.proposals.myproposal;
         }
@@ -1497,7 +1516,7 @@ class PM {
     getproposalkeybyid(proposalid) {
         const pm = new PM();
         let key = false;
-        let myproject = pm.getactiveproject.call(this)
+        let myproject = pm.getproject.call(this)
 
         if (myproject.hasOwnProperty("proposals")) {
             myproject.proposals.myproposal.map((myproposal, i) => {
@@ -1513,7 +1532,7 @@ class PM {
     getproposalbyid(proposalid) {
         const pm = new PM();
         let proposals = false;
-        let myproject = pm.getactiveproject.call(this)
+        let myproject = pm.getproject.call(this)
       
         if (myproject.hasOwnProperty("proposals")) {
             myproject.proposals.myproposal.map(myproposal => {
@@ -1552,7 +1571,7 @@ class PM {
 
         const schedule = () => {
             let schedules = [];
-            let myproject = pm.getactiveproject.call(this)
+            let myproject = pm.getproject.call(this)
 
             if (myproject.hasOwnProperty("schedulelabor")) {
                 // eslint-disable-next-line
@@ -1590,7 +1609,7 @@ class PM {
     getinvoices() {
         const pm = new PM();
         let invoices = false;
-        const myproject = pm.getactiveproject.call(this);
+        const myproject = pm.getproject.call(this);
         if (myproject.hasOwnProperty("invoices")) {
             invoices = myproject.invoices.myinvoice;
         }
@@ -1643,7 +1662,7 @@ class PM {
     getinvoicekeybyid(invoiceid) {
         const pm = new PM();
         let key = false;
-        let myproject = pm.getactiveproject.call(this)
+        let myproject = pm.getproject.call(this)
 
         if (myproject.hasOwnProperty("invoices")) {
             myproject.invoices.myinvoice.map((myinvoice, i) => {
@@ -1937,7 +1956,7 @@ class PM {
     getinvoicebyid(invoiceid) {
         const pm = new PM();
         let invoices = false;
-        let myproject = pm.getactiveproject.call(this)
+        let myproject = pm.getproject.call(this)
 
         if (myproject.hasOwnProperty("invoices")) {
             myproject.invoices.myinvoice.map(myinvoice => {
@@ -1962,7 +1981,7 @@ class PM {
     getAllActual() {
         let actuals = [];
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
 
         if (myproject) {
             if (myproject.hasOwnProperty("actuallabor")) {

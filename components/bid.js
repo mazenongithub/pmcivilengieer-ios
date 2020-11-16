@@ -109,7 +109,7 @@ class Bid {
     }
     getdirectcost(csiid) {
         const pm = new PM()
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         let directcost = 0;
         if (myproject) {
             if (myproject.hasOwnProperty("actuallabor")) {
@@ -150,7 +150,7 @@ class Bid {
     }
     invoiceitemsbycsiid(csiid) {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this)
+        const myproject = pm.getproject.call(this)
         let items = [];
         if (myproject.hasOwnProperty("actuallabor")) {
             // eslint-disable-next-line
@@ -227,7 +227,7 @@ class Bid {
     getunit(csiid) {
         const pm = new PM();
         let unit= "";
-        const activeproject = pm.getactiveparams.call(this)
+        const activeproject = pm.getnavigation.call(this)
     
         const item = pm.getbidbyid.call(this, activeproject.projectid,csiid);
         if (item) {
@@ -241,7 +241,7 @@ class Bid {
 getquantity(csiid) {
     const pm = new PM();
     let quantity = "";
-    const activeproject = pm.getactiveparams.call(this)
+    const activeproject = pm.getnavigation.call(this)
 
     const item = pm.getbidbyid.call(this, activeproject.projectid,csiid);
     if (item) {
@@ -268,7 +268,7 @@ getquantity(csiid) {
 
     handleunit(csiid, unit) {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
      
         const myuser = pm.getuser.call(this)
         if (myuser) {
@@ -311,7 +311,7 @@ getquantity(csiid) {
 
     handlequantity(csiid, quantity) {
         const pm = new PM();
-        const activeparams = pm.getactiveparams.call(this)
+        const activeparams = pm.getnavigation.call(this)
         if(isNumeric(quantity)) {
         const myuser = pm.getuser.call(this)
         if (myuser) {
@@ -383,7 +383,7 @@ getquantity(csiid) {
                             </View>
                             <View style={[styles.flex1, styles.showBorder]}>
                                 <Text style={[regularFont, styles.alignCenter]}>Quantity</Text>
-                                <TextInput value={bid.getquantity.call(this,item.csiid) }
+                                <TextInput value={bid.getquantity.call(this,item.csiid).toString() }
                                  onChangeText={text=>{bid.handlequantity.call(this,item.csiid,text)}} 
                                  style={[ regularFont, styles.alignCenter, styles.defaultInput]} />
                             </View>
@@ -392,7 +392,7 @@ getquantity(csiid) {
                                 <Text style={[regularFont, styles.alignCenter]}>Unit</Text>
                                 <TextInput
                                  style={[styles.alignCenter, regularFont, styles.defaultInput]} 
-                                 value={bid.getunit.call(this, item.csiid)}
+                                 value={bid.getunit.call(this, item.csiid).toString()}
                                  onChangeText={text=>{bid.handleunit.call(this,item.csiid,text)}}
                                  />
                             </View>
@@ -426,7 +426,7 @@ getquantity(csiid) {
     }
     showbid() {
         const pm = new PM();
-        const myproject = pm.getactiveproject.call(this);
+        const myproject = pm.getproject.call(this);
         const styles = MyStylesheet();
         const bid = new Bid();
         const myuser = pm.getuser.call(this);
@@ -436,12 +436,7 @@ getquantity(csiid) {
             <View style={[styles.generalFlex]}>
                 <View style={[styles.flex1]}>
 
-                    <View style={[styles.generalFlex, styles.bottomMargin10]}>
-                        <View style={[styles.flex1]}>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/{myproject.title}</Text>
-                            <Text style={[headerFont, styles.boldFont, styles.alignCenter]}>/bid</Text>
-                        </View>
-                    </View>
+                   
                     {bid.showbidtable.call(this)}
                 </View>
             </View>
